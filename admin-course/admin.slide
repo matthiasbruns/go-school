@@ -1,5 +1,5 @@
-# Golang Schulung
-Basics
+# Golang Admin Workshop
+Learn how to use Golang for tooling
 Tags: go, teaching
 Summary: German Golang workshop slides.
 
@@ -8,6 +8,7 @@ Freelancer
 info@matthiasbruns.com
 https://github.com/matthiasbruns
 https://www.linkedin.com/in/matthiasbruns/
+
 
 ## Basic Course 1st day
 
@@ -31,40 +32,68 @@ https://tutorialedge.net/golang/executing-system-commands-with-golang/
 
 ## HTTP Server
 
-### http package
-### Request Response
-### Basic Auth
-### JWT Auth
+## http package
+details
+
+## Request Response
+details
+
+## Basic Auth
+details
+
+## JWT Auth
+details
 
 ## Chapter 3 - Parsing
 
 ## JSON parsing
+details
 
 ## YAML parsing
+details
 
 ## Chapter 4 - SQL
 
 ## database/sql package
+details
 
 ## Example MySQL
+details
+
 ## Connection Pools
+details
+
 ## Queries
+details
+
 ## Transactions
+details
 
 ## Chapter 5 - Testing
 
-## Testing
-### Built-In Testing
-### 3rd Party Libraries
+## Built-In Testing
+details
+
+## 3rd Party Libraries
+details
 
 ## Chapter 6 - CLI reloaded
-* vanilla cli
-* libraries to use
+
+## vanilla cli
+details
+
+## libraries to use
+details
 
 ## Chapter 7 - Go vs Python
 
+## When to use Golang
+
 https://dzone.com/articles/golang-vs-python-which-one-to-choose
 * Go Performance
+
+## When to use Python
+details
 
 ## Chapter 8 - Question from day 1
 
