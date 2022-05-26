@@ -1,0 +1,232 @@
+# Golang Workshop
+Getting started with Golang and the standard library
+Tags: go, teaching
+Summary: German Golang workshop slides.
+
+Matthias Bruns
+Freelancer
+info@matthiasbruns.com
+https://github.com/matthiasbruns
+https://www.linkedin.com/in/matthiasbruns/
+
+## Chapter 1 - Introduction
+
+## Why Go?
+
+TODO - Add why go is great
+
+* No OOP
+
+## When to use Golang
+
+services, micro-services, tooling, automation, concurrency, heavy work, embedded
+
+## When not to use Golang
+
+gui, full-blown-web-portals, ai
+
+## Supported Platforms
+
+$GOOS & $GOARCH in `go env` [Go Env Referenz](https://go.dev/doc/install/source#environment)
+
+## Chapter 2 - Setup
+
+## Installing Go
+
+> Detailed instructions can be found here: [https://go.dev/doc/install](https://go.dev/doc/install)
+
+- Windows
+  - Download installer: [https://go.dev/dl/go1.18.2.windows-amd64.msi](https://go.dev/dl/go1.18.2.windows-amd64.msi)
+
+- Mac
+  - Install via homebrew
+  - `brew install go`
+
+- Linux
+  - use Snap
+  - apt (installs v 1.13)
+  - download the binary directly
+
+Now you can run a simple programm with `go run .`
+
+## IDEs
+
+* Visual Studio Code - [https://code.visualstudio.com/](https://code.visualstudio.com/)
+  * Free & Open Source
+  * Official Golang Extensions by Google
+
+* Jetbrains GoLand - [https://www.jetbrains.com/go/](https://www.jetbrains.com/go/)
+  * Paid ~200€/year
+  * Best IDE in the market
+
+## Chapter 3 - Go by example
+
+## Hello World
+Every programming language needs a **"Hello world!"** example.
+
+Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/2rie-h786WN)
+
+.play examples/00_helloworld/main.go
+
+## Go Playground Limitations
+
+- Only usable for simple exampels
+- No IO opterations except stdin & stdout
+- [https://replit.com](https://replit.com) as a more sophisticated alternative
+
+## Program skeleton
+
+.code examples/01_skeleton/main.go
+
+* Go code is grouped in packages
+* The “main” package is reserved for the main function
+* The main function does not accept parameters and is the entry point in every go program
+* The program ends when the end of main is reached
+
+## Examples: Reading command arguments
+
+TODO
+* How to read args from main, when main does not have params?
+* Introduce other source files & packages
+* Introduce testing
+
+.code examples/02_cli/cmd/main.go
+
+## Chapter 4 - Basics
+
+## Functions
+
+TODO: summarize https://go.dev/tour/basics/4 - https://go.dev/tour/basics/7
+
+## Variables
+
+TODO: summarize https://go.dev/tour/basics/8 - https://go.dev/tour/basics/10
+
+## Basic types
+
+TODO: summarize https://go.dev/tour/basics/11 - https://go.dev/tour/basics/17
+
+## Chapter 5 - Control structures
+
+## Loops
+
+TODO: summarize https://go.dev/tour/flowcontrol/1 - https://go.dev/tour/flowcontrol/4
+
+## Conditions
+
+TODO: summarize https://go.dev/tour/flowcontrol/5 - https://go.dev/tour/flowcontrol/7
+
+## Switch
+
+TODO: summarize https://go.dev/tour/flowcontrol/9 - https://go.dev/tour/flowcontrol/11
+
+## Defer
+
+TODO: summarize https://go.dev/tour/flowcontrol/12 - https://go.dev/tour/flowcontrol/14
+
+## Chapter 6 - Pointers, Structs
+
+## Pointers intro
+
+TODO: summarize https://go.dev/tour/moretypes/1
+
+## Structs intro
+
+TODO: summarize https://go.dev/tour/moretypes/2 - https://go.dev/tour/moretypes/5
+
+## Chapter 7 - Arrays, Slices & Maps
+
+## Arrays
+
+TODO: summarize https://go.dev/tour/moretypes/6
+
+## Slices Intro
+
+TODO: summarize https://go.dev/tour/moretypes/7
+
+## Slices vs Arrays
+
+TODO: summarize https://go.dev/tour/moretypes/8
+
+## Creating slices
+
+TODO: summarize https://go.dev/tour/moretypes/8 - https://go.dev/tour/moretypes/15
+
+## Mutating  slices
+
+TODO: summarize https://go.dev/tour/moretypes/8 - https://go.dev/tour/moretypes/15
+
+## Iterating with range
+
+TODO: summarize https://go.dev/tour/moretypes/16 - https://go.dev/tour/moretypes/18
+
+## Creating Maps
+
+TODO: summarize https://go.dev/tour/moretypes/19 - https://go.dev/tour/moretypes/21
+
+## Mutating Maps
+
+TODO: summarize https://go.dev/tour/moretypes/19 - https://go.dev/tour/moretypes/21
+
+## Chapter 8 - Structs and Methods
+
+## Add methods to structs
+
+TODO: summarize https://go.dev/tour/methods/1 - https://go.dev/tour/methods/8
+
+## Value vs pointer receiver
+
+bla
+
+## Interfaces
+TODO: summarize https://go.dev/tour/methods/9 - https://go.dev/tour/methods/17
+
+## No implements keyword
+
+bla
+
+## Nil receiver
+
+bla
+
+## Empty interface{}
+
+bla
+
+## Type assertions
+
+bla
+
+## Example interface fmt.Stringer
+
+bla
+
+## Chapter 9 - Errors
+
+## Chapter 10 - Generics
+
+## Chapter 11 - Goroutines
+
+## Threads vs Goroutines
+
+details
+
+## Coroutines
+ * intro `go` keyword
+ * show what happens when we do not wait for it
+
+## Channels
+
+details
+
+## Waiting for channels
+
+TODO: summarize https://go.dev/tour/concurrency/9 - https://go.dev/tour/concurrency/10
+
+## Sync with Mutex
+
+code example
+
+## Sync with WaitGroups
+
+code example

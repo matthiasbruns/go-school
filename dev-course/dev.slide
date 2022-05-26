@@ -1,0 +1,44 @@
+# Golang Dev Workshop
+Go for software developers
+Tags: go, teaching, dev
+Summary: German Golang workshop slides.
+
+Matthias Bruns
+Freelancer
+info@matthiasbruns.com
+https://github.com/matthiasbruns
+https://www.linkedin.com/in/matthiasbruns/
+
+## Basic Course 1st day
+
+## Chapter 2 - HTTP
+
+## HTTP Server
+
+### http package
+### Request Response
+### Basic Auth
+### JWT Auth
+
+## Chapter 3 - Parsing
+
+## JSON parsing
+
+## YAML parsing
+
+## Chapter 4 - SQL
+
+## database/sql package
+
+## Example MySQL
+## Connection Pools
+## Queries
+## Transactions
+
+## Chapter 5 - Testing
+
+## Testing
+### Built-In Testing
+### 3rd Party Libraries
+
+## Chapter 6 - Goroutines Reloaded
