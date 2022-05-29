@@ -197,17 +197,46 @@ When the right hand side contains an untyped numeric constant, the new variable 
 
 .code examples/06_loops/cmd/intro/main.go /^//START_3/,/^//END_3/ HL3
 
-## If
+## If-Statements
 
-TODO: summarize https://go.dev/tour/flowcontrol/5 - https://go.dev/tour/flowcontrol/7
+* allows branching code based on conditions
+* the expression need not be surrounded by parentheses **`( )`**
+* the braces **`{ }`** are required
+
+.play examples/07_if/cmd/intro/main.go  /^//START_1/,/^//END_1/ HL1
+
+## If - Short Statements
+
+* Assign the result of a call to **`v`** within the if statement
+* Variables declared by the statement are only in scope until the end of the if
+
+.code examples/07_if/cmd/intro/main.go  /^//START_2/,/^//END_2/ HL2
+
+## If-else
+
+* If the condition of if is **`false`**, the optional **`else`** block will run
+
+.code examples/07_if/cmd/intro/main.go  /^//START_3/,/^//END_3/ HL3
 
 ## Switch
 
-TODO: summarize https://go.dev/tour/flowcontrol/9 - https://go.dev/tour/flowcontrol/11
+* **`switch`** statement is a shorter way to write a sequence of **`if`** - **`else`** statements
+* No "fall-through"; Go only runs the matching case
+* Case values do not need to be consts or ints
+* Cases evaluated from top to bottom
+* **`default`** case as fallback
+
+.play examples/08_switch/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Defer
 
-TODO: summarize https://go.dev/tour/flowcontrol/12 - https://go.dev/tour/flowcontrol/14
+* **`defer`** defers the exection until the end of the function
+
+.play examples/09_defer/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+* multiple **`defer`**s will be stacked and exected in last-in-first-out order
+
+.play examples/09_defer/cmd/stacked/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Chapter 6 - Pointers, Structs
 

@@ -7,7 +7,7 @@ Slides are built with [golang.org/x/tools/cmd/present](https://pkg.go.dev/golang
 
 ## Installation
 
-Install present int your `$GOPATH/bin`
+Install present int0 your `$GOPATH/bin`
 
 > `go install golang.org/x/tools/cmd/present`
 
