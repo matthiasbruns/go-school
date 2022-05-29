@@ -1,0 +1,18 @@
+# Golang Schulung
+Basics
+Tags: go, teaching
+Summary: German Golang workshop slides.
+
+Matthias Bruns
+Freelancer
+info@matthiasbruns.com
+https://github.com/matthiasbruns
+@MTrax
+
+## Shell-Skripte aus Go aufrufen
+
+## Go vs Python
+
+## Supported Platforms
+
+$GOOS & $GOARCH in `go env` [Go Env Referenz](https://go.dev/doc/install/source#environment)

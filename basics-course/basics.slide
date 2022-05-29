@@ -90,29 +90,114 @@ TODO
 * Introduce other source files & packages
 * Introduce testing
 
-.code examples/02_cli/cmd/main.go
+.code examples/02_cli/cmd/main.go 
 
 ## Chapter 4 - Basics
 
 ## Functions
 
-TODO: summarize https://go.dev/tour/basics/4 - https://go.dev/tour/basics/7
+* Functions can take zero or more arguments
+* The type comes _after_ the variable name
+
+.play examples/03_functions/cmd/functions/main.go /^//START_1/,/^//END_1/ HL1
+
+## Functions cont. I
+
+* two or more consecutive named function parameters share a type, omit all types but the last
+* `x int, y int` -> `x, y int`
+
+.code examples/03_functions/cmd/functions/main.go /^//START_2/,/^//END_2/ HL2
+
+## Functions cont. II
+
+* function can return any number of results
+
+.play examples/03_functions/cmd/swap/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Variables
 
-TODO: summarize https://go.dev/tour/basics/8 - https://go.dev/tour/basics/10
+* `var` statement can be at package or function level
+
+.play examples/04_variables/cmd/intro/main.go HL1
+
+## Variables cont. I
+
+* `var` declaration can include initializers, one per variable
+* if an initializer is present, the type can be omitted
+  * the variable will take the type of the initializer
+
+.play examples/04_variables/cmd/initializers/main.go /^//START_1/,/^//END_1/ HL1
+
+## Variables cont. II
+
+* the `:=` short assignment statement can be used in place of a var declaration with implicit type
+* Outside a function, every statement begins with a keyword (`var`, `func`, and so on) and so the `:=` construct is not available
+
+.code examples/04_variables/cmd/initializers/main.go /^//START_2/,/^//END_2/ HL2
 
 ## Basic types
 
-TODO: summarize https://go.dev/tour/basics/11 - https://go.dev/tour/basics/17
+* int, uint, and uintptr types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems
+* when you need an integer value you should use int unless you have a specific reason to use a sized or unsigned integer type
+
+.code examples/05_basic_types/types.go
+
+## Basic types - Zero values
+
+* The zero value is:
+  * 0 for numeric types,
+  * false for the boolean type, and
+  * "" (the empty string) for strings.
+
+.code examples/05_basic_types/zero.go /^//START_1/,/^//END_1/ HL1
+
+## Basic types - Type conversions
+
+* you can e.g. convert int to float64
+* and convert it back to uint
+* Go assignment between items of different type requires an explicit conversion
+
+.code examples/05_basic_types/conversions.go
+
+## Basic types - Type inference
+
+When the right hand side of the declaration is typed, the new variable is of that same type
+
+.code examples/05_basic_types/inference.go /^//START_1/,/^//END_1/
+
+When the right hand side contains an untyped numeric constant, the new variable may be an int, float64, or complex128
+
+.code examples/05_basic_types/inference.go /^//START_2/,/^//END_2/
+
+## Basic types - Constants
+
+* `const` in package or function
+* *must* be assigned with `=`
+
+.play examples/05_basic_types/cmd/constants/main.go HL1
 
 ## Chapter 5 - Control structures
 
 ## Loops
 
-TODO: summarize https://go.dev/tour/flowcontrol/1 - https://go.dev/tour/flowcontrol/4
+* iterate and repeat program snippets
+* Go only has the keyword **`for`** - no `while` or `foreach` keywords
+* the init and post statements are optional
 
-## Conditions
+.play examples/06_loops/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+## Loops - "other" loops
+
+* Go does not have a `while` keyword
+* Simply use `for` with only a condition
+
+.code examples/06_loops/cmd/intro/main.go /^//START_2/,/^//END_2/ HL2
+
+* for endless loops use for without a condition
+
+.code examples/06_loops/cmd/intro/main.go /^//START_3/,/^//END_3/ HL3
+
+## If
 
 TODO: summarize https://go.dev/tour/flowcontrol/5 - https://go.dev/tour/flowcontrol/7
 
