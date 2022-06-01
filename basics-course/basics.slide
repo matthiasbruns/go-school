@@ -9,6 +9,32 @@ info@matthiasbruns.com
 https://github.com/matthiasbruns
 https://www.linkedin.com/in/matthiasbruns/
 
+## /whoami
+
+## Matthias Bruns
+
+* Married, three children and a french bulldog
+* Developer since 2011
+* Worked with JEE & Spring, Android, Node and Golang
+* Founder of happyann.de (Backend written in Golang)
+* Worked with eBay, Fressnapf, IBM, REWE, RTL, etc..
+* Clean Architecture & Testing Evangelist
+* Currently learning: Rust
+
+## Agenda
+
+* Why Golang?
+* Installing Golang
+* Intruduction by Example
+* Golang Basics
+* Control structures
+* Pointers & Structs
+* Arrays, Slices and Maps
+* Structs and Methods
+* Errors in Go
+* Generics
+* Goroutines - Concurrency in Go
+
 ## Chapter 1 - Introduction
 
 ## Why Go?
