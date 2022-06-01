@@ -1,0 +1,1 @@
+func Index[T comparable](s []T, x T) int

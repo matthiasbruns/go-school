@@ -448,38 +448,187 @@ If you only want the index, you can omit the second variable
 
 ## Add methods to structs
 
-TODO: summarize https://go.dev/tour/methods/1 - https://go.dev/tour/methods/8
+* Go does not have classes
+* You can still "add" methods to structs or type definitions by defining a *receiver*
+
+.play examples/15_methods/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+## Add methods to structs II
+
+* A method is just a function with a receiver argument
+* Written without a struct receiver
+
+.code examples/15_methods/cmd/intro/main.go /^//START_2/,/^//END_2/ HL2
+
+## Pointer receivers
+
+* Define a receiver as a pointer with **`*`**
+* Allows the method to modify receiver values
+
+.play examples/15_methods/cmd/pointers/main.go /^//START_1/,/^//END_1/ HL1
+
+## Pointer receivers II
+
+Removing the pointer receiver definition leads to a different result
+
+**Q**: What will happen?
+
+.play examples/15_methods/cmd/nopointers/main.go /^//START_1/,/^//END_1/ HL1
+
+## Methods and pointer indirection
+
+* Functions parameters need to be provided as requested
+  * If a function needs a pointer, you cannot provide a value and vice versa
+
+.code examples/15_methods/indirection.go /^//START_1/,/^//END_1/ HL1
+
+* Methods can either be called on a pointer or value
+
+.code examples/15_methods/indirection.go /^//START_2/,/^//END_2/ HL2
+
+Go interprets the statement **`v.Scale(5)`** as **`(&v).Scale(5)`** since the Scale method has a pointer receiver!
+
+## Example - Pointer indirection
+
+**Q**: What will happen?
+
+.play examples/15_methods/cmd/indirection/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Value vs pointer receiver
 
-bla
+When to chose a value or pointer reciver?
+
+* There are two reasons to use a pointer receiver
+  * modify the value that its receiver points to
+  * avoid copying the value on each method call
 
 ## Interfaces
-TODO: summarize https://go.dev/tour/methods/9 - https://go.dev/tour/methods/17
 
-## No implements keyword
+An interface **`type`** is defined as a set of method signatures
 
-bla
+.code examples/16_interface/intro.go /^//START_1/,/^//END_1/ HL1
+
+* Interfaces are implemented implicitly, there is no **`implements`** keyword
+
+.code examples/16_interface/intro.go /^//START_2/,/^//END_2/ HL2
+
+## Interfaces II
+
+* It is important if a receiver is a pointer or value type
+
+.code examples/16_interface/intro.go /^//START_3/,/^//END_3/ HL3
+
+## Example - fmt.Stringer
+
+* **`Stringer`** is defined in the **`fmt`** package 
+
+.code examples/16_interface/stringer.go
+
+* Can be used like **`toString()`** in other programmig languages when working with **`fmt`**
+
+.play examples/16_interface/cmd/stringer/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Nil receiver
 
-bla
+* if the underlying value of an interface is **`nil`**, the method will be called with a nil receiver
+* if not handled within the method, go might **`panic`**
+
+.code examples/16_interface/cmd/nil/main.go /^//START_1/,/^//END_1/ HL1
+
+## Example - nil reciever
+
+**Q**: What will happen?
+
+.play examples/16_interface/cmd/nil/main.go /^//START_2/,/^//END_2/ HL2
+
+## Nil interface values
+
+* If an interface is not initialized, if holds a reference to **`nil`**
+* Go will **`panic`** upon calling a method of the interface
+
+.play examples/16_interface/cmd/nilpanic/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Empty interface{}
 
-bla
+* Handles values of unknown type
+  * Used to simulate generics pre 1.18
+* Allows any value to be set to a variable
+
+.play examples/16_interface/cmd/empty/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Type assertions
 
-bla
+* Used to "cast" **`interface{}`** to the actual type
+* Will panic, if the value does not hold the value type that you want to cast to 
 
-## Example interface fmt.Stringer
+This statement asserts that the interface value i holds the concrete type T and assigns the underlying T value to the variable t. 
 
-bla
+.code examples/16_interface/assert.go /^//START_1/,/^//END_1/ HL1
+
+* Test whether an interface value holds a specific type, a type assertion can return two values
+* If **`ok`** is false, `t` will be set to its **`zero`** value.
+
+.code examples/16_interface/assert.go /^//START_2/,/^//END_2/ HL2
+
+## Example - Type assertions
+
+**Q**: What is f?
+
+**Q**: Why does it panic?
+
+.play examples/16_interface/cmd/assert/main.go /^//START_1/,/^//END_1/ HL1
+
+## Type switches
+
+* To react to multiple interface{} types, you can switch on the type
+* As usual `switch-case`, the checks will be evaluated top to bottom
+
+.play examples/16_interface/cmd/switch/main.go /^//START_1/,/^//END_1/ HL1
+
+## Exercise - Stringers
+
+Make the IPAddr type implement fmt.Stringer to print the address as a dotted quad. 
+
+For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4". 
+
+.code examples/16_interface/exercise.go
+
+## Result - Stringers
+
+*show in IDE*
 
 ## Chapter 9 - Errors
 
+## Go error
+
+* Go programs express error state with error values
+* Functions often return an error value
+
+.code examples/17_errors/intro.go HL1
+
 ## Chapter 10 - Generics
+
+## What are Generics?
+
+* Go functions can be written to work on multiple types using type parameters
+* Type parameters of a function appear between brackets, before the function's arguments
+
+.code examples/18_generics/intro.go HL1
+
+* s is a slice of any type **`T`** that fulfills the built-in constraint **`comparable`**
+* x is also a value of the same type 
+
+*comparable is a useful constraint that makes it possible to use the == and != operators on values of the type*
+
+## Example - Generics
+
+.play examples/18_generics/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+## Generic types
+
+* types can also be generic
+
+.code examples/18_generics/types.go HL1
 
 ## Chapter 11 - Goroutines
 
