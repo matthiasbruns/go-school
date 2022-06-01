@@ -189,7 +189,7 @@ When the right hand side contains an untyped numeric constant, the new variable 
 ## Loops - "other" loops
 
 * Go does not have a `while` keyword
-* Simply use `for` with only a condition
+* Simply use `for` with a condition
 
 .code examples/06_loops/cmd/intro/main.go /^//START_2/,/^//END_2/ HL2
 
@@ -274,19 +274,60 @@ When the right hand side contains an untyped numeric constant, the new variable 
 
 ## Arrays
 
-TODO: summarize https://go.dev/tour/moretypes/6
+* Arrays are fixed-sized lists of data
 
-## Slices Intro
+.code examples/12_arrays/intro.go /^//START_1/,/^//END_1/
+
+* array's length is part of its type, so arrays cannot be resized 
+
+.play examples/12_arrays/intro.go /^//START_2/,/^//END_2/ HL2
+
+.image examples/12_arrays/arrays.png
+
+## Slices
+
+* dynamically-sized
+* flexible view into the elements of an array
+* slice is formed by specifying two indices, a low and high bound
+> `a[low : high]`
+* includes the `low` element, but excludes the `high` one.
+> `a[1:4]`
+
+.play examples/13_slices/intro.go /^//START_1/,/^//END_1/ HL1
 
 TODO: summarize https://go.dev/tour/moretypes/7
 
-## Slices vs Arrays
+## Slices & Arrays
 
-TODO: summarize https://go.dev/tour/moretypes/8
+* Slices are pointers to arrays
+* a slice contains the current length of the slice and the capacity of the underlying array
+* when a slice size grows too big, the underlying array needs to be copied into a bigger one
+
+.image examples/13_slices/slice.jpg
+
+## Slices & Arrays
+
+> Q: What will happen?
+
+.play examples/13_slices/cmd/arraytoslice/main.go /^//START_1/,/^//END_1/  HL1
 
 ## Creating slices
 
-TODO: summarize https://go.dev/tour/moretypes/8 - https://go.dev/tour/moretypes/15
+* You can create slices without an array
+* slice literal is like an array literal without the length
+
+ This is an array literal: 
+
+.code examples/13_slices/literals.go /^//START_1/,/^//END_1/ HL1
+
+ And this creates the same array as above, then builds a slice that references it: 
+
+.code examples/13_slices/literals.go /^//START_2/,/^//END_2/ HL2
+
+
+## Creating slices
+
+.play examples/13_slices/cmd/slices/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Mutating  slices
 
