@@ -632,15 +632,24 @@ For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4".
 
 ## Chapter 11 - Goroutines
 
-## Threads vs Goroutines
+## What are Goroutines?
 
-details
+"A goroutine is a lightweight thread managed by the Go runtime" - go.dev
 
-## Coroutines
- * intro `go` keyword
- * show what happens when we do not wait for it
+.code examples/19_goroutines/intro.go
+
+* Goroutines are function calls starting with **go**
+* Goroutines run on the same address space; real threads get a new one managed by the OS
+  * access to shared memory must be synchronized
+* Goroutines are handled by the Go runtime; threads are being managed by the OS
+
+## WaitGroups
+
+
 
 ## Channels
+
+
 
 details
 
