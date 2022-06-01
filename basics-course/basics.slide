@@ -645,22 +645,100 @@ For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4".
 
 ## WaitGroups
 
+* If we run a Goroutine, main won't wait for it
+* When the parent Goroutines finishes, the spawned one won't automatically, which will lead to a leak
 
+.play examples/19_goroutines/cmd/nowait/main.go /^//START_1/,/^//END_1/ HL1
+
+## WaitGroups II
+
+* To prevent this, we can use WaitGroups or other locking/synchronization mechanisms
+
+.play examples/19_goroutines/cmd/wait/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Channels
 
+* Act like communication pipes between goroutines
+* Can be used as a synchronization point between goroutines
+  * By default, sends and receives block until the other side is read
 
+.code examples/19_goroutines/channels.go /^//START_1/,/^//END_1/
 
-details
+*The data flows in the direction of the arrow*
+
+Like maps and slices, channels must be created before use: 
+
+.code examples/19_goroutines/channels.go /^//START_2/,/^//END_2/
+
+## Example - Channels
+
+.play examples/19_goroutines/cmd/channels/main.go /^//START_1/,/^//END_1/ HL1
+
+## Buffered Channels
+
+.code examples/19_goroutines/channels.go /^//START_3/,/^//END_3/
+
+* Like channels but with a buffer length
+* Sends to a buffered channel block only when the buffer is full
+* Receives block when the buffer is empty
+
+.play examples/19_goroutines/cmd/buffered/main.go /^//START_1/,/^//END_1/ HL1
+
+## Range and Close
+
+* A sender can close a channel to indicate that no more values will be sent
+* Receivers can test whether a channel has been closed
+  * Only the sender should close a channel, never the receiver
+  * Channels aren't like files; you don't usually need to close them
+* if `ok` is false, the channel is closed  
+
+.code examples/19_goroutines/channels.go /^//START_4/,/^//END_4/
+
+* You can iterate channel values with **`range`**
+
+.code examples/19_goroutines/channels.go /^//START_5/,/^//END_5/
+
+## Example - Range and Close
+
+.play examples/19_goroutines/cmd/range/main.go /^//START_1/,/^//END_1/ HL1
+
+## Select
+
+* **`select`** statement lets a goroutine wait on multiple communication operations
+* **`select`** blocks until one of its cases can run
+  * It chooses one at random if multiple are ready
+
+## Example - Select
+
+.play examples/19_goroutines/cmd/select/main.go /^//START_1/,/^//END_1/ HL1
+
+## Default Selection
+
+What if we do not want to block until **`select`** triggers?
+
+* Add a default branch wich will be used as fallback is no channel is selected
+
+.code examples/19_goroutines/select.go HL1
+
+## Example - Default Seleection
+
+**Q**: Guess what will happen
+
+.play examples/19_goroutines/cmd/default/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Waiting for channels
 
 TODO: summarize https://go.dev/tour/concurrency/9 - https://go.dev/tour/concurrency/10
 
-## Sync with Mutex
+## Mutex
 
-code example
+* good to ensure only one goroutines accesses a variable
+* `sync.Mutex` has two methods
+  * Lock
+  * Unlock 
 
-## Sync with WaitGroups
+.code examples/19_goroutines/cmd/mutex/main.go /^//START_1/,/^//END_1/ HL1
 
-code example
+## Example - Mutex
+
+.play examples/19_goroutines/cmd/mutex/main.go /^//START_2/,/^//END_2/ HL2
