@@ -1,0 +1,1 @@
+func append(s []T, vs ...T) []T

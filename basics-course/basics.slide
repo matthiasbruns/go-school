@@ -295,7 +295,20 @@ When the right hand side contains an untyped numeric constant, the new variable 
 
 .play examples/13_slices/intro.go /^//START_1/,/^//END_1/ HL1
 
-TODO: summarize https://go.dev/tour/moretypes/7
+## Slice defaults
+
+* you may omit the high or low bounds to use their defaults instead
+* default is 
+  * zero for the low bound 
+  * the length of the slice for the high bound
+
+For the array 
+
+> `var a [10]int`
+
+these slice expressions are equivalent: 
+
+> `a[0:10], a[:10], a[0:], a[:]`
 
 ## Slices & Arrays
 
@@ -305,9 +318,9 @@ TODO: summarize https://go.dev/tour/moretypes/7
 
 .image examples/13_slices/slice.jpg
 
-## Slices & Arrays
+## Example - Slices & Arrays
 
-> Q: What will happen?
+**Q**: What will happen?
 
 .play examples/13_slices/cmd/arraytoslice/main.go /^//START_1/,/^//END_1/  HL1
 
@@ -324,26 +337,112 @@ TODO: summarize https://go.dev/tour/moretypes/7
 
 .code examples/13_slices/literals.go /^//START_2/,/^//END_2/ HL2
 
+## Example - Creating slices
 
-## Creating slices
+**Q**: What will happen?
 
 .play examples/13_slices/cmd/slices/main.go /^//START_1/,/^//END_1/ HL1
 
-## Mutating  slices
+## nil Slices
 
-TODO: summarize https://go.dev/tour/moretypes/8 - https://go.dev/tour/moretypes/15
+* since a slice is a pointer to an array, the pointer value can be `nil`
+* `nil` slices have a `len` and `cap` of 0 
+
+.play examples/13_slices/cmd/nil/main.go /^//START_1/,/^//END_1/ HL1
+
+## Creating slices with make
+
+* `make` function allocates a zeroed array and returns a slice that refers to that array
+
+.code examples/13_slices/make.go /^//START_1/,/^//END_1/
+
+* to specify a capacity, pass a third argument
+
+.code examples/13_slices/make.go /^//START_2/,/^//END_2/
+
+## Example - make slice
+
+**Q**: What will happen?
+
+.play examples/13_slices/cmd/make/main.go /^//START_1/,/^//END_1/ HL1
+
+## Slices of slices
+
+* Slices can contain other slices
+
+.play examples/13_slices/cmd/slicesofslices/main.go /^//START_1/,/^//END_1/ HL1
+
+## Appending to slices
+
+* Go provides a built-in function **`append`**
+
+.code examples/13_slices/append.go
+
+* First parameter **`s`** of append it the slice with type `T`
+* The following parameters are values of `T`, that should be appended
+* If the backing array of s is too small to fit all the given values a bigger array will be allocated
+* The returned slice will point to the newly allocated array
 
 ## Iterating with range
 
-TODO: summarize https://go.dev/tour/moretypes/16 - https://go.dev/tour/moretypes/18
+* Looping through a slice can be done with `range`
+* Two values are provided each iteration - index and a copy of the element
 
-## Creating Maps
+.play examples/13_slices/cmd/range/main.go /^//START_1/,/^//END_1/ HL1
 
-TODO: summarize https://go.dev/tour/moretypes/19 - https://go.dev/tour/moretypes/21
+## Iterating with range II
+
+You can ignore the index or value by setting the variable to `_`
+
+.code examples/13_slices/range.go /^//START_1/,/^//END_1/ HL1
+
+If you only want the index, you can omit the second variable
+
+.code examples/13_slices/range.go /^//START_2/,/^//END_2/ HL2
+
+## Creating Maps with make
+
+* Maps hold a list of key value pairs
+* The `zero` value of a map is `nil`
+  * has no keys and no keys can be added
+* `make` creates a new empty map
+
+.play examples/14_maps/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+## Map literals
+
+* Maps can be created like structs with literals
+* The literals contain a key value pair
+
+.code examples/14_maps/literals.go /^//START_1/,/^//END_1/ HL1
+
+* You can omit `Vertex` while creating the structs in the map literal
+
+.code examples/14_maps/literals.go /^//START_2/,/^//END_2/ HL2
 
 ## Mutating Maps
 
-TODO: summarize https://go.dev/tour/moretypes/19 - https://go.dev/tour/moretypes/21
+* Insert or update an element in map
+
+.code examples/14_maps/mutate.go /^//START_1/,/^//END_1/ HL1
+
+* Retrieve an element
+
+.code examples/14_maps/mutate.go /^//START_2/,/^//END_2/ HL2
+
+* Delete an element
+
+.code examples/14_maps/mutate.go /^//START_3/,/^//END_3/ HL3
+
+* Test that a key is present with a two-value assignment
+
+.code examples/14_maps/mutate.go /^//START_4/,/^//END_4/ HL4
+
+## Example - Mutating Maps
+
+**Q**: What will happen?
+
+.play examples/14_maps/cmd/mutate/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Chapter 8 - Structs and Methods
 
