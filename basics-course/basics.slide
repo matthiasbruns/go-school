@@ -39,17 +39,38 @@ https://www.linkedin.com/in/matthiasbruns/
 
 ## Why Go?
 
-TODO - Add why go is great
+* Simple code
+* Created for large projects
+* Easy to learn
+* One problem – one solution
+* Designed for multi-core processors
+* Quick compilation
+* Small application size
+* Limited OOP
+* Completely open source - https://cs.opensource.google/go/go;l=2268
 
-* No OOP
+## Who uses Golang
+
+* Google - Chrome & Earth, YouTube and Search Engine
+* Uber - https://github.com/uber-go
+* CoreOS systemd https://github.com/coreos/go-systemd
+* SoundCloud
+* Twitch - heavy loaded systems
+* SendGrid  - Cloud Mail
 
 ## When to use Golang
 
-services, micro-services, tooling, automation, concurrency, heavy work, embedded
+* web services
+* micro-services
+* tooling & automation
+* concurrency & heavy work
+* embedded
 
 ## When not to use Golang
 
-gui, full-blown-web-portals, ai
+* gui
+* full-blown-web-portals & SSR
+* ML & GPU work
 
 ## Supported Platforms
 

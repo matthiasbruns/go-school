@@ -9,37 +9,93 @@ info@matthiasbruns.com
 https://github.com/matthiasbruns
 https://www.linkedin.com/in/matthiasbruns/
 
-
 ## Basic Course 1st day
 
 ## Chapter 1 - Exec on OS
 
+## os package
+
+* https://pkg.go.dev/os
+* **`os`** package provides platform-independent interface to operating system functionality
+
+.code examples/01_os/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+
 ## os/exec package
 
-```go
-if runtime.GOOS == "windows" {
-    fmt.Println("Can't Execute this on a windows machine")
-} else {
-    execute()
-}
-```
 * https://pkg.go.dev/os/exec
+* **`os/exec`** allows to call scripts and other binaries directly - this may break the platform-independency
 
-## Example
-https://tutorialedge.net/golang/executing-system-commands-with-golang/
+.code examples/01_os/exec.go HL1
+
+## Example - Call "ls"
+
+* Calls `ls -lts` 
+* Does not work on Windows 
+
+.play examples/01_os/cmd/ls/main.go /^//START_1/,/^//END_1/ HL1
+
+## Exercise - Build a platform-independ ls 
+
+* Do not use **`os/exec`**
+  * Use File.Readdir https://pkg.go.dev/os#File.Readdir
+* Log the names of the files containing a folder
+* _(optional)_ add the path to the folder via an argument
+* _(optional)_ get information like permission with **`os.Stat(file)`**
+
+## Result - platform-independ ls 
+
+TODO code exercie
+
+*show in IDE*
 
 ## Chapter 2 - HTTP
 
 ## HTTP Server
 
-## http package
-details
+* Spins up a http server with two routes
+  * http://localhost:8090/hello
+  * http://localhost:8090/headers
+* Allows all methods: GET, POST, ....
 
-## Request Response
-details
+.play examples/02_http/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+## HTTP Server II
+
+* http.ListenAndServe(":8090", nil) - why is the handler set to **`nil`**?
+  * "The handler is usually nil, which means to use DefaultServeMux"
+* What is a ServeMux?
+  * ServeMux is an HTTP request multiplexer
+  * Matches an incomming request against the configured patterns and calls the one that most closely matches the url
+  * There are many other ServerMux implementations in the standard lib
+
+## HTTP Client
+
+* Issue an HTTP GET request to a server. 
+* **`http.Get`** is a quick way to create an http.Client - uses http.DefaultClient
+* Uses `bufio` to read the response data
+  * Package bufio implements buffered I/O
+
+.play examples/02_http/cmd/client/main.go /^//START_1/,/^//END_1/ HL1
+
+## http package
+
+* Enfore a certain http method by checking the incoming request
+
+.code examples/02_http/method.go HL1
+
+* If you need custom headers for http.Client, instantiate your own 
+
+.code examples/02_http/client.go HL1
 
 ## Basic Auth
-details
+
+* Blocks public access from the web resource
+* Can be read via **`request.BasicAuth()`**
+* If the auth header is not a Basic Auth header,  **`ok`** will be **`false`**
+* You have to validate username & password by yourself
+
+.code examples/02_http/basic_auth.go HL1
 
 ## JWT Auth
 details
