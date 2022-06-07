@@ -38,14 +38,13 @@ https://www.linkedin.com/in/matthiasbruns/
 ## Exercise - Build a platform-independ ls 
 
 * Do not use **`os/exec`**
-  * Use File.Readdir https://pkg.go.dev/os#File.Readdir
+  * Use os.Open(dirPath) to get a file pointer
+  * Use the file pointer with File.Readdir https://pkg.go.dev/os#File.Readdir
 * Log the names of the files containing a folder
 * _(optional)_ add the path to the folder via an argument
-* _(optional)_ get information like permission with **`os.Stat(file)`**
+* _(optional)_ get information like permission from the **`FileInfo`**
 
 ## Result - platform-independ ls 
-
-TODO code exercie
 
 *show in IDE*
 
@@ -363,7 +362,7 @@ TODO code exercie
 
 .image coding-gopher.gif
 
-*Source: Kirael Art - https://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682*
+.caption Kirael Art - https://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682
 
 ## Chapter 5 - Testing
 
@@ -398,25 +397,201 @@ TODO code exercie
 
 .image testing-gopher.svg
 
-*Source: Kirael Art - https://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682*
+.caption Illustration by Marcus Olsson CC BY-NC-SA 4.0
 
-## Chapter 6 - CLI reloaded
+## Chapter 6 - CLI
 
-## vanilla cli
-details
+## Recap - CLI
 
-## libraries to use
-details
+* Read args with **`os.Args`**
+* The first entry is always the program
+* This can be enough to build you own cli tool
+
+.code examples/08_cli/intro.go /^//START_1/,/^//END_1/ HL1
+
+## Recap - CLI libraries
+
+* You could parse flags and values by yourself and validate if the input is correct
+* ... but there are libraries for that
+
+## Cli library - Cobra
+
+https://github.com/spf13/cobra
+
+* POSIX-compliant flags
+* Nested subcommands
+* Global, local and cascading flags
+* Intelligent suggestions (app srver... did you mean app server?)
+* Automatic help generation for commands and flags
+* Automatic help flag recognition of -h, --help, etc.
+* Automatically generated shell autocomplete for your application (bash, zsh, fish, powershell)
+
+## Cli library - cli
+
+https://github.com/urfave/cli
+
+cli is a simple, fast, and fun package for building command line apps in Go. The goal is to enable developers to write fast and distributable command line applications in an expressive way
+
+.code examples/08_cli/cli.go /^//START_1/,/^//END_1/ HL1
+
+## Cli library - cli II
+
+* If you finish you cli project and want to store it into your $PATH, you can either
+  * compile it with **`go build`** and move the compiled binary into your path
+  * install any Go project into your **`$GOPATH/bin`** with **`go install`**
+
+* How to read args in cli?
+
+.code examples/08_cli/cli.go /^//START_2/,/^//END_2/ HL2
+
+
+## Cli library - cli Flags
+
+* You can define flags with defaults and read their values
+* Call **`c.String("lang")`** on **`cli.Context`** to get mapped flag args
+
+.code examples/08_cli/cli.go /^//START_3/,/^//END_3/ HL3
+
+
+## Cli library - cli Flags II
+
+* You can also define a destination where the flag should be stored in
+
+.code examples/08_cli/cli.go /^//START_4/,/^//END_4/ HL4
+
+## Cli library - cli Flags ENV vars
+
+* You can use EnvVars as fallback values for flags
+* Set the **`EnvVars`** property on a flag
+* The first matching value will be read from the **`EnvVars`** slice
+
+.code examples/08_cli/cli.go /^//START_5/,/^//END_5/ HL5
+
+## Cli library - cli Flags FilePath
+
+* You can also read flags from a file
+* Set the **`FilePath`** property on a flag
+* FilePath has a highter priority than EnvVars
+* Currently supported input source formats: * YAML * JSON * TOML
+
+.code examples/08_cli/cli.go /^//START_6/,/^//END_6/ HL6
+
+## Cli library - cli Commands
+
+* You are able to add commands to your cli application
+* Set **`Commands`** in your `cli.App`
+  * Commands can also have flags and arguments
+* Commands can also have **`Subcommands`**
+
+.code examples/08_cli/cli.go /^//START_7/,/^//END_7/ HL7
+
+## Exercise - Dog fact cli
+
+.image dog-gopher.jpg
+
+.caption Maria Nynfa - https://twitter.com/maria_nynfa/status/1181668007627677699
+
+## Exercise - Dog fact cli
+
+* Build a cli that prints random dog facts
+* I suggest you to use the presented cli library, but you are free to also use viper or manual args mapping
+* You can 
+  * provide a list of dog facts by your own or 
+  * use https://kinduff.github.io/dog-api/ (free to use)
+* add useful help for your commands and flags
+* (optional) - define how many fact you want to have presented in a flag
+* (optional) - add a bark command which let's your program bark
+* (optional) - all a dog ascii art command
+
+**This is the last exercise of this course, so have fun with it!**
+
+## Libraries to use
+
+## Gin for the web!
+
+* For web servers, I would always pick **`github.com/gin-gonic/gin`**
+  * really fast because they built their own ServerMux - read more here https://github.com/julienschmidt/httprouter
+  * easy to build routes for http methods (GET; POST, DELETE etc..)
+
+.code examples/09_libs/gin.go HL1
+
+## GORM for SQL
+
+* We went through the sql Golang package and how to use the interface
+* If you are looking for a ORM, I suggest GORM https://github.com/go-gorm/gorm
+
+.code examples/09_libs/gorm.go /^//START_1/,/^//END_1/ HL1
+
+## Logging in Go
+
+* **Logrus** is a good standalone logger solution https://github.com/sirupsen/logrus
+  * has different formatters, color support, prints callers 
+
+* **uber/zap** https://github.com/uber-go/zap
+  * low alloc logging implementation by uber
+  * has support for defered logging, when logging is not time critical with `SugaredLogger`
+
+I prefer zap because of its performance and logrus because if its ease of use
+
+## Dependency Injection
+
+* **wire** https://github.com/google/wire
+  * compile-time code generation to build the dependency injection graph in Golang
+
+* **uber/fx** https://github.com/uber-go/fx
+  * for runtime dependency injection
+  * validates graph on application start
+  * has a concept for modules
+
+I prefer uber/fx over wire. It allows a more modulized , domain-driven approach
+
+## Build scripts
+
+* Go has no build tool like Maven or Gradle
+* If you search for information, you will find a lot of Makefiles, which break the platform-independency of Golang
+* I use Taskfile https://taskfile.dev/ for my Golang projects, which work like a lightweight Gradle
+  * It prevents you from rerunning tasks, which do not need to be rerun
+  * It allows you to map command chains
+
+.code examples/09_libs/taskfile.go
+
+## Testing
+
+* **mockgen** for mock generation https://github.com/golang/mock
+* **testify** for testing https://github.com/stretchr/testify provides assertion and test suites
+
+.code examples/09_libs/mock.go HL1
+
+## Config Management
+
+* **godotenv** https://github.com/joho/godotenv 
+  * for simple .env file and ENV VAR handling
+
+.code examples/09_libs/godotenv.go /^//START_1/,/^//END_1/ HL1
+
+* **viper** https://github.com/spf13/viper 
+  * for complex config management
 
 ## Chapter 7 - Go vs Python
 
+.image go_vs_python_perf_comp.png 500 900
+
+.caption https://www.guru99.com/python-vs-go.html
+
 ## When to use Golang
 
-https://dzone.com/articles/golang-vs-python-which-one-to-choose
-* Go Performance
+* Use of concurrency - goroutines
+* Readability - depending on who you ask
+* (Micro)-Services with REST or gRPC
+* Compilable for many platforms
 
 ## When to use Python
-details
+
+* Dynamicly typed, faster cold-boot ~ 10-20 %
+* Readability - depending on who you ask
+* Amount of libraries
+* Machine learning
+* Django and other full-blown web portals
 
 ## Chapter 8 - Question from day 1
 

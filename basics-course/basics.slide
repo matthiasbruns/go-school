@@ -132,7 +132,6 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 
 ## Examples: Reading command arguments
 
-TODO
 * How to read args from main, when main does not have params?
 * Introduce other source files & packages
 * Introduce testing
