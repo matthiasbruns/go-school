@@ -7,7 +7,7 @@ import (
 
 //START_1 OMIT
 func main() {
-	tick := time.Tick(100 * time.Millisecond)  // triggeres after x repeatedly
+	tick := time.Tick(100 * time.Millisecond)  // triggers after x repeatedly
 	boom := time.After(500 * time.Millisecond) // triggers after x once
 
 	for {

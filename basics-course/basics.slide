@@ -11,6 +11,8 @@ https://www.linkedin.com/in/matthiasbruns/
 
 ## /whoami
 
+.image hype.jpg 600 600
+
 ## Matthias Bruns
 
 * Married, three children and a french bulldog
@@ -20,6 +22,10 @@ https://www.linkedin.com/in/matthiasbruns/
 * Worked with eBay, Fressnapf, IBM, REWE, RTL, etc..
 * Clean Architecture & Testing Evangelist
 * Currently learning: Rust
+
+## /whoareyou?
+
+.image share.png 600 600
 
 ## Agenda
 
@@ -111,7 +117,8 @@ Now you can run a simple programm with `go run .`
 * Detailed instructions can be found here: [https://go.dev/doc/install](https://go.dev/doc/install)
 * Do **not** install 1.13 from apt on Linux, this will be too old
 
-.image setup-gopher.jpg 500 500
+.image setup-gopher.jpg 400 400
+.caption Maria Nynfa https://twitter.com/maria_nynfa/status/1181344478818394112
 
 ## Chapter 3 - Go by example
 
@@ -121,6 +128,8 @@ Every programming language needs a **"Hello world!"** example.
 Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/2rie-h786WN)
 
 .play examples/00_helloworld/main.go
+
+.image hello_world.png 233 400
 
 ## Go Playground Limitations
 
@@ -156,6 +165,9 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 *show in IDE*
 
 ## Chapter 4 - Basics
+
+.image go-hike.png 500 700
+.caption https://betterprogramming.pub/how-to-write-generic-helper-functions-with-go-d47c52986016
 
 ## Functions
 
@@ -248,6 +260,9 @@ When the right hand side contains an untyped numeric constant, the new variable 
 * the init and post statements are optional
 
 .play examples/06_loops/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+.image go-loop.jpg
+
 
 ## Loops - "other" loops
 
@@ -507,6 +522,20 @@ If you only want the index, you can omit the second variable
 
 .play examples/14_maps/cmd/mutate/main.go /^//START_1/,/^//END_1/ HL1
 
+## Exercise - Find biggest number in slice
+
+* You have an unsorted slice of numbers
+* Iterate over the slice and find the biggest number
+* In the end use **`fmt.Sprint`** to display the biggest number
+* (optional) find the smallest number
+* (optional) if there are multiple biggest/smallest numbers, return all of them in a slice
+
+.image search-gopher.jpg 350 300
+
+## Result - Find biggest number in slice
+
+*show in IDE*
+
 ## Chapter 8 - Structs and Methods
 
 ## Add methods to structs
@@ -669,6 +698,8 @@ For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4".
 
 .code examples/17_errors/intro.go HL1
 
+.image error-go.png 300 300
+
 ## Go error II
  
 * In a case of an error, a good gopher might do the following
@@ -712,6 +743,8 @@ For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4".
 * Goroutines run on the same address space; real threads get a new one managed by the OS
   * access to shared memory must be synchronized
 * Goroutines are handled by the Go runtime; threads are being managed by the OS
+
+.image goroutines.jpeg 350 350
 
 ## WaitGroups
 
@@ -790,7 +823,7 @@ What if we do not want to block until **`select`** triggers?
 
 .code examples/19_goroutines/select.go HL1
 
-## Example - Default Seleection
+## Example - Default Selection
 
 **Q**: Guess what will happen
 
@@ -799,6 +832,7 @@ What if we do not want to block until **`select`** triggers?
 ## Mutex
 
 * Good to ensure only one goroutines accesses a variable
+* **`sync/atomic`** provides low-level atomic memory primitives 
 * **`sync.Mutex`** has two methods
   * Lock
   * Unlock 
@@ -808,6 +842,50 @@ What if we do not want to block until **`select`** triggers?
 ## Example - Mutex
 
 .play examples/19_goroutines/cmd/mutex/main.go /^//START_2/,/^//END_2/ HL2
+
+## Worker Pools
+
+* Worker pools are a used pattern in Golang in combination with Goroutines
+* To limit the amount of spawned Goroutines, it is good practise to instantiate `m` workers
+* These workers keep working on `n` jobs until they are done
+* In the end the results may be collected by the workers
+
+.code examples/19_goroutines/cmd/pool/main.go /^//START_1/,/^//END_1/ HL1
+
+## Worker Pools II
+
+* Define a fixed number of jobs and corresponsing channels for comminucation between coroutines
+* "Boot" up the workers
+
+.code examples/19_goroutines/cmd/pool/main.go /^//START_2/,/^//END_2/ HL2
+
+## Worker Pools III
+
+* Send the job data into the job channel
+* Close when all jobs where sent
+* Collect the results
+
+.code examples/19_goroutines/cmd/pool/main.go /^//START_3/,/^//END_3/ HL3
+
+## Example - Worker Pools
+
+*show in IDE*
+
+.image golang-worker.png 400 600
+
+## Exercise: Goroutines
+
+* Launch multiple Goroutines and each goroutine adding values to a Channel
+* Spawn 10 Goroutines
+  * Each Goroutine should count from 0 to 10
+  * Send the counted value to a channel
+* A loop should iterate the channel and output the values in the order it receives them
+
+.image gopher-this-is-fine.jpg
+
+## Example - Goroutines
+
+*show in IDE*
 
 ## Summary
 
