@@ -42,3 +42,10 @@ if err != nil {
 rows, err := stmt.Query(age)
 // process rows
 //END_5 OMIT
+
+//START_6 OMIT
+tx, err := db.BeginTx(ctx, nil)
+if err != nil {
+	log.Fatal(err)
+}
+//END_6 OMIT

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 )
@@ -41,17 +40,5 @@ func main() {
 
 	if err := http.ListenAndServe(":8090", nil); err != nil {
 		panic(err)
-	}
-}
-
-func hello(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	ctx = context.WithValue(ctx, "greeted", true)
-
-	if result, err := doSomething(ctx); err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		_, _ = w.Write([]byte("500 - Something bad happened!"))
-	} else {
-		fmt.Fprint(w, result)
 	}
 }

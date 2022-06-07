@@ -325,7 +325,6 @@ TODO code exercie
 
 .code examples/05_sql/intro.go /^//START_3/,/^//END_3/ HL3
 
-
 ## SQL Interface IV
 
 * **`QueryRowContext`** is used when you expect only one row as a result (findById)
@@ -340,25 +339,66 @@ TODO code exercie
 
 * Transactions are started with BeginTx
 
-## Example MySQL
-details
+.code examples/05_sql/intro.go /^//START_6/,/^//END_6/ HL6
+
+* `ExecContext`, `QueryContext`, `QueryRowContext` and `PrepareContext` methods already covered can be used in a transaction
+* A transaction must end with a call to **`Commit`** or **`Rollback`**
 
 ## Connection Pools
-details
 
-## Queries
-details
+* sql.DB already contains a backing connection pool by default
+* If you need to change the config
+  * **`SetMaxOpenConns`**: sets the maximum number of open connections to the database
+  * **`SetMaxIdleConns `**: sets the maximum number of connections in the idle connection pool (default is 2)
+  * **`SetConnMaxIdleTime`**: sets the maximum amount of time a connection may be idle
+  * **`SetConnMaxLifetime`**: sets the maximum amount of time a connection may be reused
 
-## Transactions
-details
+## Example MySQL
+
+* Opens a connection on localhost:3306 to schema goschool with root:mypassword as user:password
+
+.code examples/05_sql/mysql.go HL1
+
+## Live Coding - MySQL
+
+.image coding-gopher.gif
+
+*Source: Kirael Art - https://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682*
 
 ## Chapter 5 - Testing
 
 ## Built-In Testing
-details
 
-## 3rd Party Libraries
-details
+* Testing is a very important process in developing maintainable software
+* Golang has built-in testing support with the **`testing`** package
+* A test is defined by
+> `func TestSomething(t *testing.T)`
+
+.code examples/07_testing/intro.go /^//START_1/,/^//END_1/ HL1
+
+## Table-Driven Testing
+
+* Some tests may require many input and output Variables
+* Instead of copying the tests, Go offers so called "table-driven" tests
+
+.code examples/07_testing/intro.go /^//START_2/,/^//END_2/ HL2
+
+## Benchmark Testing
+
+* The **`testing`** package also provides a way to benchmark implementations
+* Benchmark functions start with `Benchmark` not `Test`
+* Benchmark functions are run several times by the testing package
+* Each benchmark must execute the code under test `b.N` times
+
+> `go test -bench=.`
+
+.code examples/07_testing/intro.go /^//START_3/,/^//END_3/ HL3
+
+## Live Testing
+
+.image testing-gopher.svg
+
+*Source: Kirael Art - https://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682*
 
 ## Chapter 6 - CLI reloaded
 
