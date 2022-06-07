@@ -11,6 +11,19 @@ https://www.linkedin.com/in/matthiasbruns/
 
 ## Basic Course 1st day
 
+## Agenda
+
+* Go and your OS
+* HTTP server & client
+* Basic & JWT authentication
+* JSON & YAML parsing
+* SQL interface with MySQL
+* Go Context
+* Go for CLIs
+* Best practises
+* Go & Python
+* Open Question from Day 1
+
 ## Chapter 1 - Exec on OS
 
 ## os package
@@ -19,7 +32,6 @@ https://www.linkedin.com/in/matthiasbruns/
 * **`os`** package provides platform-independent interface to operating system functionality
 
 .code examples/01_os/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
-
 
 ## os/exec package
 
@@ -572,7 +584,7 @@ I prefer uber/fx over wire. It allows a more modulized , domain-driven approach
 * **viper** https://github.com/spf13/viper 
   * for complex config management
 
-## Chapter 7 - Go vs Python
+## Chapter 7 - Go & Python
 
 .image go_vs_python_perf_comp.png 500 900
 
@@ -593,6 +605,24 @@ I prefer uber/fx over wire. It allows a more modulized , domain-driven approach
 * Machine learning
 * Django and other full-blown web portals
 
-## Chapter 8 - Question from day 1
+## Question from day 1
 
-## Chapter 9 - Q&A
+## Summary
+
+* Learned how Go can communicate with the OS
+* Used the http package for server & client
+* Created a HTTP server with JWT authentication
+* Compared JSON & YAML parsing
+* Communicated with MySQL through the SQL interface
+* Learned a bit about the Go Context
+* Built a Go CLI
+* Discussed best practises
+* Compared Go & Python
+
+## Q&A
+
+## Le Fin
+
+Feedback **https://bit.ly/go-school-2022** *or https://forms.gle/HRnQUyQwurmCpVb38*
+
+.image mic-drop.png 500 500

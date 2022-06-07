@@ -103,8 +103,15 @@ Now you can run a simple programm with `go run .`
   * Official Golang Extensions by Google
 
 * Jetbrains GoLand - [https://www.jetbrains.com/go/](https://www.jetbrains.com/go/)
-  * Paid ~200€/year
+  * Paid ~200€/year or community edition of IntelliJ IDE with the official plugin
   * Best IDE in the market
+
+## Exercise: Install Golang 
+
+* Detailed instructions can be found here: [https://go.dev/doc/install](https://go.dev/doc/install)
+* Do **not** install 1.13 from apt on Linux, this will be too old
+
+.image setup-gopher.jpg 500 500
 
 ## Chapter 3 - Go by example
 
@@ -117,7 +124,7 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 
 ## Go Playground Limitations
 
-- Only usable for simple exampels
+- Only usable for simple exampels [https://go.dev/play](https://go.dev/play)
 - No IO opterations except stdin & stdout
 - [https://replit.com](https://replit.com) as a more sophisticated alternative
 
@@ -137,6 +144,16 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 * Introduce testing
 
 .code examples/02_cli/cmd/main.go 
+
+## Exercise: Hello, Matthias!
+
+- Write a simple Go program that outputs "Hello, Matthias!"
+- Create a main.go file with a `main` function inside
+- Execute the code by running `go run .` in the terminal while being in the work directory
+
+## Result - Hello, Matthias!
+
+*show in IDE*
 
 ## Chapter 4 - Basics
 
@@ -779,14 +796,10 @@ What if we do not want to block until **`select`** triggers?
 
 .play examples/19_goroutines/cmd/default/main.go /^//START_1/,/^//END_1/ HL1
 
-## Waiting for channels
-
-TODO: summarize https://go.dev/tour/concurrency/9 - https://go.dev/tour/concurrency/10
-
 ## Mutex
 
-* good to ensure only one goroutines accesses a variable
-* `sync.Mutex` has two methods
+* Good to ensure only one goroutines accesses a variable
+* **`sync.Mutex`** has two methods
   * Lock
   * Unlock 
 
@@ -795,3 +808,22 @@ TODO: summarize https://go.dev/tour/concurrency/9 - https://go.dev/tour/concurre
 ## Example - Mutex
 
 .play examples/19_goroutines/cmd/mutex/main.go /^//START_2/,/^//END_2/ HL2
+
+## Summary
+
+* Explained why you should use Golang
+* Installed Golang
+* Learned Golang Basics
+* Used Control structures
+* Tried out Pointers & Structs
+* Saw the difference between Arrays, Slices and Maps
+* Extended Structs with Methods
+* Handled Errors in Go
+* Heard about Generics
+* Played with Goroutines
+
+## Q&A
+
+## Le Fin
+
+.image mic-drop.png 500 500
