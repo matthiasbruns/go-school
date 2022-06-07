@@ -652,6 +652,13 @@ For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4".
 
 .code examples/17_errors/intro.go HL1
 
+## Go error II
+ 
+* In a case of an error, a good gopher might do the following
+  * handle the error with some retry logic
+  * ignore the error and use some fallback
+  * return the error to the calling function
+
 ## Chapter 10 - Generics
 
 ## What are Generics?
