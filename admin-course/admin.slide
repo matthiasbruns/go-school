@@ -101,6 +101,28 @@ https://www.linkedin.com/in/matthiasbruns/
 
 .code examples/02_http/client.go HL1
 
+## Exercise http Client
+
+* Connect to a server with basic auth protection
+* The server can be downloaded here:
+
+[https://github.com/matthiasbruns/go-school/blob/main/admin-course/coding/http/main.go](https://github.com/matthiasbruns/go-school/blob/main/admin-course/coding/http/main.go)
+
+* Run it with **`go run main.go`** & the server will listen on localhost:8090
+* Use **`request.SetBasicAuth(username, password)`** before sending the request to **localhost:8090/basic-auth** to set the Authentication header in your request
+* You can print the response body to you console with 
+
+```
+    bodyBytes, err := io.ReadAll(resp.Body)
+    // ..
+    bodyString := string(bodyBytes)
+    fmt.Println(bodyString)
+```
+
+## Result - http Client
+
+*show in IDE*
+
 ## Chapter 3 - Parsing
 
 ## JSON parsing
@@ -152,7 +174,6 @@ https://www.linkedin.com/in/matthiasbruns/
 
 .code examples/03_json/nested.go /^//START_3/,/^//END_3/ HL3
 
-
 ## JSON - JSON tags
 
 * Go maps attribute names to case-insensitive json names
@@ -203,6 +224,12 @@ https://www.linkedin.com/in/matthiasbruns/
 * Write a program that reads a YAML file and logs its contents
 * You can use **`ioutil.ReadFile`** from the package **`io/ioutil`** to read a file
 * As an example for the file contents, you can use this snippet
+* Remember that you need to parse YAML data into 
+> data := make(map[interface{}]interface{})
+
+with
+
+> err = yaml.Unmarshal(yfile, &data)
 
 .code examples/04_yaml/exercise.yaml
 
