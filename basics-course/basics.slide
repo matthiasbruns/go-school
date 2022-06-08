@@ -752,6 +752,10 @@ For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4".
 
 .image goroutines.jpeg 350 350
 
+## Goroutines vs Threads
+
+.image goroutine.png 500 500
+
 ## WaitGroups
 
 * If we run a Goroutine, main won't wait for it
