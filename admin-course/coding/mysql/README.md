@@ -19,7 +19,7 @@ create table gophers
 
 ## Run MySQL
 
-`docker run --detach --name=goschool-mysql -p 52000:3306  --env="MYSQL_ROOT_PASSWORD=mypassword" mysql`
+`docker run --detach --name=goschool-mysql -p 52000:3306 --platform linux/x86_64  --env="MYSQL_ROOT_PASSWORD=mypassword" mysql`
 
 ## Connect to localhost MySQL
 
