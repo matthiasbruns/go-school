@@ -17,6 +17,7 @@ func getHello(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// curl localhost:8090/basic-auth --header "Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ="
 func basicAuth(w http.ResponseWriter, r *http.Request) {
 	username, password, ok := r.BasicAuth()
 
@@ -36,8 +37,9 @@ func basicAuth(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/hello", getHello)
-	http.HandleFunc("/basic-uth", basicAuth)
+	http.HandleFunc("/basic-auth", basicAuth)
 
+	fmt.Println("Server started")
 	if err := http.ListenAndServe(":8090", nil); err != nil {
 		panic(err)
 	}
