@@ -15,7 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	data := make(map[interface{}]interface{})
+	data := make(map[string]int)
 
 	err = yaml.Unmarshal(yfile, &data)
 

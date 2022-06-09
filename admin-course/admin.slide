@@ -22,6 +22,7 @@ https://www.linkedin.com/in/matthiasbruns/
 * HTTP server & client
 * JSON & YAML parsing
 * SQL interface with MySQL
+* Testing
 * Go Context
 * Best practises
 * Go & Python
@@ -54,7 +55,7 @@ https://www.linkedin.com/in/matthiasbruns/
 * Do not use **`os/exec`**
   * Use os.Open(dirPath) to get a file pointer
   * Use the file pointer with File.Readdir https://pkg.go.dev/os#File.Readdir
-* Log the names of the files containing a folder
+* Log the names of the contents of the folder
 * _(optional)_ add the path to the folder via an argument
 * _(optional)_ get information like permission from the **`FileInfo`**
 
