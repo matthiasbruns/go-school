@@ -29,42 +29,42 @@ https://www.linkedin.com/in/matthiasbruns/
 * **`main`** has local variables **`n`** & **`n2`**
 * **`main`** function assigned to own stack frame, same for **`square`**
 
-.image examples/01_memory/stack_01.jpg
+.image examples/01_memory/stack_01.jpg _ 700
 
 ## Variable allocations II
 
 * square is called and **`n2`** is set to `16`
 * square's stackframe is not removed but marked as invalid/unnused
 
-.image examples/01_memory/stack_02.jpg
+.image examples/01_memory/stack_02.jpg _ 700
 
 ## Variable allocations III
 
 * **`Println`** is called and the unused stack frame of **`square`** is consumed/replaced by the Println call
   * has the same memory address as the unnused stack frame before
 
-.image examples/01_memory/stack_03.jpg
+.image examples/01_memory/stack_03.jpg _ 700
 
 ## Pointer allocations
 
 * **`main`** has a local variable **`n`** and sends a pointer of n into the function **`inc`**
 * **`main`** function assigned to own stack frame, same for **`inc`**
 
-.image examples/01_memory/stack_04.jpg
+.image examples/01_memory/stack_04.jpg _ 700
 
 ## Pointer allocations II
 
 * function **`inc`** dereferences the pointer and increments the value
 * stack frame of **`inc`** is again unused/invalid 
 
-.image examples/01_memory/stack_05.jpg
+.image examples/01_memory/stack_05.jpg _ 700
 
 ## Pointer allocations III
 
 * function **`Println`** runs
   * acquires the memory that was freed up by the inc function as shown in the below figure
 
-.image examples/01_memory/stack_06.jpg
+.image examples/01_memory/stack_06.jpg _ 700
 
 ## Why is n not on the heap?
 
@@ -76,9 +76,43 @@ https://www.linkedin.com/in/matthiasbruns/
 
 TODO show how to validate that asumption
 
+## Pointer in Heap
+
+* So we have a function main that has a variable n who's value is assigned by a function answer which returns a pointer to it's local variable. This is how the stack frame allocation is done initially for both the functions
+
+.image examples/01_memory/stack_07.jpg _ 700
+
+## Pointer in Heap II
+
+* Now when the function answer executes and returns the pointer, the address for x is assigned to the variable n in the main function and the answer function's stack frame gets freed up (unused)
+
+.image examples/01_memory/stack_08.jpg _ 700
+
+We have a problem here, we have a pointer pointing down to the unused (invalid memory) in the stack. But how is that a problem?
+
+Let us see what happens when the Println function is called.
+
+## Pointer in Heap III
+
+* Println function takes the space freed up by the answer function (notice the memory address) and takes reference to the returned value and divides it by 2 (making it 21)
+
+.image examples/01_memory/stack_09.jpg _ 700
+
+* This is the problem here, the value which n was pointing to (which was originally 42) has been overwritten by the Println call which made it 21. And since Println took over the memory address of answer function (after answer function freed up the space), now that memory has the value 21 (instead of 42)
+
+## Pointer in Heap IV
+
+* Compiler knows it was NOT safe to leave the pointer variable on the stack. So what it does is, it declares x (from the answer function) somewhere on the Heap
+
+.image examples/01_memory/stack_10.jpg _ 700
+
+This means when the Println function is called, which changes the value to half, it will not clobber the value of x. This is called Escaping To The Heap which is done during the compile time.
+
+Therefore, sharing up (returning pointers) typically escapes to the Heap.
+
 ## Chapter 2 - HTTP
 
-HTTP Server
+## HTTP Server
 
 .play examples/02_http/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
 
