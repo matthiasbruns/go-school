@@ -11,34 +11,374 @@ https://www.linkedin.com/in/matthiasbruns/
 
 ## Basic Course 1st day
 
+## Chapter 1 - Memory Management
+
+## Stack vs Heap
+
+* The available memory of a program is divided into two parts
+  * **Stack:**, per thread & goroutine; holds a continues list of jump addresses and data  
+    * **short-lived** & **fixed-sized**, that do not leave the frame/scope, access LiFo
+  * **Heap:** holds variables, that are shared throughout the program as well as dynamically sized data
+    * can be access randomly
+    * housekeeping like defragmenting and garbage collecting is required in Go
+
+.image stack_vs_heap.jpg  225 425
+
+## Variable allocations 
+
+* **`main`** has local variables **`n`** & **`n2`**
+* **`main`** function assigned to own stack frame, same for **`square`**
+
+.image examples/01_memory/stack_01.jpg
+
+## Variable allocations II
+
+* square is called and **`n2`** is set to `16`
+* square's stackframe is not removed but marked as invalid/unnused
+
+.image examples/01_memory/stack_02.jpg
+
+## Variable allocations III
+
+* **`Println`** is called and the unused stack frame of **`square`** is consumed/replaced by the Println call
+  * has the same memory address as the unnused stack frame before
+
+.image examples/01_memory/stack_03.jpg
+
+## Pointer allocations
+
+* **`main`** has a local variable **`n`** and sends a pointer of n into the function **`inc`**
+* **`main`** function assigned to own stack frame, same for **`inc`**
+
+.image examples/01_memory/stack_04.jpg
+
+## Pointer allocations II
+
+* function **`inc`** dereferences the pointer and increments the value
+* stack frame of **`inc`** is again unused/invalid 
+
+.image examples/01_memory/stack_05.jpg
+
+## Pointer allocations III
+
+* function **`Println`** runs
+  * acquires the memory that was freed up by the inc function as shown in the below figure
+
+.image examples/01_memory/stack_06.jpg
+
+## Why is n not on the heap?
+
+.play examples/01_memory/example.go /^//START_1/,/^//END_1/ HL1
+
+* *Sharing down* of the variables (passing references) typically stays on the stack
+
+*This is because, the GO Compiler takes the decision whether a referenced variable needs to stay on the stack or on the heap.*
+
+TODO show how to validate that asumption
+
 ## Chapter 2 - HTTP
 
-## HTTP Server
+HTTP Server
 
-### http package
-### Request Response
-### Basic Auth
-### JWT Auth
+.play examples/02_http/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+* Spins up a http server with two routes
+  * http://localhost:8090/hello
+  * http://localhost:8090/headers
+* Allows all methods: GET, POST, ....
+
+## Request methods
+* Enfore a certain http method by checking the incoming request
+
+.code examples/02_http/method.go HL1
+
+* There are great web libraries to improve the standard http package of Go
+
+## Starting the server
+
+* http.ListenAndServe(":8090", nil) 
+  * Starts the http server and listens on port 8090
+  * Why is the handler set to **`nil`**?
+  * "The handler is usually nil, which means to use DefaultServeMux" - Go docs
+
+## What is a ServeMux?
+  * ServeMux is an HTTP request multiplexer
+  * Matches an incomming request against the configured patterns and calls the one that most closely matches the url
+  * There are many other ServerMux implementations in the standard lib
+
+## request.Context()
+
+* The Go Context
+  * carries deadlines, cancellation signals, and other request-scoped values across API boundaries and between processes
+  * accepts values that you can add to it - e.g. meta data for the current scope
+* When a Context is canceled, all Contexts derived from it are also canceled.
+
+.code examples/06_context/excurse.go HL1
+
+## HTTP Client
+
+* Issue an HTTP GET request to a server. 
+* **`http.Get`** is a quick way to create an http.Client - uses http.DefaultClient
+* Uses `bufio` to read the response data
+  * Package bufio implements buffered I/O
+
+.play examples/02_http/cmd/client/main.go /^//START_1/,/^//END_1/ HL1
+
+## http headers
+
+* If you need custom headers for http.Client, instantiate your own 
+
+.code examples/02_http/client.go HL1
+
+## Exercise http Client
+
+* Connect to a server with basic auth protection
+* The server can be downloaded here:
+
+[https://github.com/matthiasbruns/go-school/blob/main/dev-course/coding/http/main.go](https://github.com/matthiasbruns/go-school/blob/main/dev-course/coding/http/main.go)
+
+* Run it with "**`go run main.go`**" & the server will listen on localhost:8090
+* Use **`request.SetBasicAuth(username, password)`** before sending the request to **localhost:8090/basic-auth** to set the Authorization header in your request
+* You can print the response body to you console with 
+
+```
+    bodyBytes, err := io.ReadAll(resp.Body)
+    // ..
+    bodyString := string(bodyBytes)
+    fmt.Println(bodyString)
+```
+
+## Result - http Client
+
+*show in IDE*
 
 ## Chapter 3 - Parsing
 
 ## JSON parsing
 
+* **`encoding/json`** provides functionality for json handling
+* you can parse raw json, files, requests or other streams
+
+.code examples/03_json/raw.go HL1
+
+## JSON - Structured data
+
+* "Structured data" refers to data where you know the format beforehand
+
+.code examples/03_json/structured.go /^//START_1/,/^//END_1/ HL1
+
+* Create a struct that mirrors the data you want to parse
+* Struct fields must be public in order for unmarshal
+
+.code examples/03_json/structured.go /^//START_2/,/^//END_2/ HL2
+
+* Unmarschal as following
+
+.code examples/03_json/structured.go /^//START_3/,/^//END_3/ HL3
+
+## JSON - Arrays
+
+* Let's look how we can decode a json array
+
+.code examples/03_json/arrays.go /^//START_1/,/^//END_1/ HL1
+
+* Unmarshal it by creating a slice of birds
+
+.code examples/03_json/arrays.go /^//START_2/,/^//END_2/ HL2
+
+## JSON - Nested Objects
+
+* What about nested json objects?
+
+.code examples/03_json/nested.go /^//START_1/,/^//END_1/ HL1
+
+* Create corresponding structs
+
+.code examples/03_json/nested.go /^//START_2/,/^//END_2/ HL2
+
+## JSON - Nested Objects II
+
+* Unmarshal json data into struct and nested struct
+
+.code examples/03_json/nested.go /^//START_3/,/^//END_3/ HL3
+
+## JSON - JSON tags
+
+* Go maps attribute names to case-insensitive json names
+* If you want to map attributes to different names, use **`json tags`**
+
+.code examples/03_json/tags.go /^//START_1/,/^//END_1/ HL1
+
+* **`birdType`** should be mapped to **`Species`**
+* **`what it does`** should be mapped to **`Description`**
+
+.code examples/03_json/tags.go /^//START_2/,/^//END_2/ HL2
+
+## JSON - Unstructured data
+
+* If you do not know the JSON structure beforehand, you cannot use structs to unmarschal the data
+* You can use maps to parse unstructures JSON data
+  * Objects and nested objects will be mapped to **`map[string]interface{}`**
+
+.play examples/03_json/cmd/unstructured/main.go /^//START_1/,/^//END_1/ HL1
+
+## JSON - Marschaling data
+
+* Use **`json.Marshal`** to transform structs or maps into json data
+* You can use **`omitempty`** to leave out a property completely when empty
+
+.play examples/03_json/cmd/marschal/main.go /^//START_1/,/^//END_1/ HL1
+
 ## YAML parsing
+
+* An external package is required to parse YAML files 
+> **`go get gopkg.in/yaml.v3`**
+* Source code is available at https://github.com/go-yaml/yaml
+
+## YAML parsing II
+
+* Parsing unstructured YAML data may look like this
+
+.code examples/04_yaml/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+## YAML parsing III
+
+* Parsing unstructured YAML data may look like this
+
+.code examples/04_yaml/cmd/intro/main.go /^//START_2/,/^//END_2/ HL2
 
 ## Chapter 4 - SQL
 
 ## database/sql package
 
-## Example MySQL
+"Package sql provides a generic interface around SQL (or SQL-like) databases"
+
+* The sql package must be used in conjunction with a database driver
+* Supported drivers can be found here 
+> https://github.com/golang/go/wiki/SQLDrivers
+
+.code examples/05_sql/import.go HL1
+
+## SQL Interface
+
+* How to connect to a database?
+
+.code examples/05_sql/intro.go /^//START_1/,/^//END_1/ HL1
+
+* How to execute queries?
+
+.code examples/05_sql/intro.go /^//START_2/,/^//END_2/ HL2
+
+## SQL Interface II 
+
+* How to execute queries?
+
+* ExecContext is used for queries where no rows are returned
+* result contains the number of rows affected
+
+.code examples/05_sql/intro.go /^//START_2/,/^//END_2/ HL2
+
+## SQL Interface III
+
+* **`QueryContext`** is used to fetch data from the database
+* Returns a cursor, which needs to be closed once done
+
+.code examples/05_sql/intro.go /^//START_3/,/^//END_3/ HL3
+
+## SQL Interface IV
+
+* **`QueryRowContext`** is used when you expect only one row as a result (findById)
+
+.code examples/05_sql/intro.go /^//START_4/,/^//END_4/ HL4
+
+* Prepared statements can be created with **`PrepareContext`**
+
+.code examples/05_sql/intro.go /^//START_5/,/^//END_5/ HL5
+
+## SQL Transactions
+
+* Transactions are started with BeginTx
+
+.code examples/05_sql/intro.go /^//START_6/,/^//END_6/ HL6
+
+* `ExecContext`, `QueryContext`, `QueryRowContext` and `PrepareContext` methods already covered can be used in a transaction
+* A transaction must end with a call to **`Commit`** or **`Rollback`**
+
 ## Connection Pools
-## Queries
-## Transactions
+
+* sql.DB already contains a backing connection pool by default
+* If you need to change the config
+  * **`SetMaxOpenConns`**: sets the maximum number of open connections to the database
+  * **`SetMaxIdleConns `**: sets the maximum number of connections in the idle connection pool (default is 2)
+  * **`SetConnMaxIdleTime`**: sets the maximum amount of time a connection may be idle
+  * **`SetConnMaxLifetime`**: sets the maximum amount of time a connection may be reused
+
+## Example MySQL
+
+* Opens a connection on localhost:3306 to schema goschool with root:mypassword as user:password
+
+.code examples/05_sql/mysql.go HL1
+
+## Live Coding - MySQL
+
+.image coding-gopher.gif
+
+.caption Kirael Art - https://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682
+
 
 ## Chapter 5 - Testing
 
-## Testing
-### Built-In Testing
-### 3rd Party Libraries
+## Built-In Testing
+
+* Testing is a very important process in developing maintainable software
+* Golang has built-in testing support with the **`testing`** package
+* A test is defined by
+> `func TestSomething(t *testing.T)`
+
+.code examples/07_testing/intro.go /^//START_1/,/^//END_1/ HL1
+
+## Table-Driven Testing
+
+* Some tests may require many input and output Variables
+* Instead of copying the tests, Go offers so called "table-driven" tests
+
+.code examples/07_testing/intro.go /^//START_2/,/^//END_2/ HL2
+
+## Benchmark Testing
+
+* The **`testing`** package also provides a way to benchmark implementations
+* Benchmark functions start with `Benchmark` not `Test`
+* Benchmark functions are run several times by the testing package
+* Each benchmark must execute the code under test `b.N` times
+
+> `go test -bench=.`
+
+.code examples/07_testing/intro.go /^//START_3/,/^//END_3/ HL3
+
+## Live Testing
+
+.image testing-gopher.svg
+
+.caption Illustration by Marcus Olsson CC BY-NC-SA 4.0
 
 ## Chapter 6 - Goroutines Reloaded
+
+    Go-Routines/Channels
+
+
+    Go Modules
+
+    Arbeiten mit Datum und Uhrzeit
+
+    Best Practices und Frameworks zur Entwicklung von Rest Services
+
+    Generelle Übersicht und Entscheidungshilfe wann Go seine Stärken ausspielen kann und sich besser eignet als andere Sprachen und wo die Schwächen sind
+
+    Wie strukturiere ich große Go-Projekte “Go-idiomatisch” richtig
+
+    Testing
+    Error Handling
+    Speicherverwaltung
+    
+    Structs
+    Interfaces
