@@ -4,18 +4,18 @@ import "fmt"
 
 //START_1 OMIT
 func main() {
-	m := make(map[string]int) // HL1
+	inventory := make(map[string]int) // HL1
 
-	m["Answer"] = 42 // HL1
-	fmt.Println("The value:", m["Answer"])
+	inventory["Fiat Punto"] = 2 // HL1
+	fmt.Println("The value:", inventory["Fiat Punto"])
 
-	m["Answer"] = 48 // HL1
-	fmt.Println("The value:", m["Answer"])
+	inventory["Fiat Punto"] = 1 // HL1
+	fmt.Println("The value:", inventory["Fiat Punto"])
 
-	delete(m, "Answer") // HL1
-	fmt.Println("The value:", m["Answer"])
+	delete(inventory, "Fiat Punto") // HL1
+	fmt.Println("The value:", inventory["Fiat Punto"])
 
-	v, ok := m["Answer"] // HL1
+	v, ok := inventory["Fiat Punto"] // HL1
 	fmt.Println("The value:", v, "Present?", ok)
 }
 

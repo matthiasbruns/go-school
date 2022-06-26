@@ -514,14 +514,12 @@ If you only want the index, you can omit the second variable
 
 ## Map literals
 
-TODO CHANGE VERTEX
-
 * Maps can be created like structs with literals
 * The literals contain a key value pair
 
 .code examples/14_maps/literals.go /^//START_1/,/^//END_1/ HL1
 
-* You can omit `Vertex` while creating the structs in the map literal
+* You can omit struct name "`Car`" while creating the structs in the map literal
 
 .code examples/14_maps/literals.go /^//START_2/,/^//END_2/ HL2
 
@@ -551,13 +549,13 @@ TODO CHANGE VERTEX
 
 ## Exercise - Find biggest number in slice
 
-* You have an unsorted slice of numbers
+* You have an unsorted slice of numbers - e.g. [4, -3 ,0, 4, 77, 6]
 * Iterate over the slice and find the biggest number
-* In the end use **`fmt.Print`** to display the biggest number
+* Use a version of **`fmt.Print`** to display the biggest number
 * (optional) find the smallest number
-* (optional) if there are multiple biggest/smallest numbers, return all of them in a slice
+* (optional) if there are multiple biggest/smallest numbers, return all indexes of them in a slice
 
-.image search-gopher.jpg 350 300
+.image search-gopher.jpg 300 _
 
 ## Result - Find biggest number in slice
 

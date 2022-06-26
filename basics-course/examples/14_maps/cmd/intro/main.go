@@ -3,18 +3,18 @@ package main
 import "fmt"
 
 //START_1 OMIT
-type Vertex struct {
-	Lat, Long float64
+type Car struct {
+	Doors, HP int
 }
 
-var m map[string]Vertex // HL1
+var inventory map[string]Car // HL1
 
 func main() {
-	m = make(map[string]Vertex) // HL1
-	m["Bell Labs"] = Vertex{
-		40.68433, -74.39967,
-	}
-	fmt.Println(m["Bell Labs"])
+	inventory = make(map[string]Car) // HL1
+
+	inventory["Fiat Punto"] = Car{3, 50}
+
+	fmt.Println(inventory["Fiat Punto"])
 }
 
 //END_1 OMIT

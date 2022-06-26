@@ -1,25 +1,21 @@
 package main
 
-type Vertex struct {
-	Lat, Long float64
+type Car struct {
+	Doors, HP int
 }
 
 //START_1 OMIT
-var m = map[string]Vertex{
-	"Bell Labs": Vertex{
-		40.68433, -74.39967,
-	},
-	"Google": Vertex{
-		37.42202, -122.08408,
-	},
+var inv = map[string]Car{
+	"Fiat Punto":    Car{3, 50},
+	"Telsa Model 3": Car{4, 480},
 }
 
 //END_1 OMIT
 
 //START_2 OMIT
-var m2 = map[string]Vertex{
-	"Bell Labs": {40.68433, -74.39967},
-	"Google":    {37.42202, -122.08408},
+var inv2 = map[string]Car{
+	"Fiat Punto":    {3, 50},
+	"Telsa Model 3": {4, 480},
 }
 
 //END_2 OMIT
