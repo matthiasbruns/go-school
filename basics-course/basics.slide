@@ -131,12 +131,6 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 
 .image hello_world.png 233 400
 
-## Go Playground Limitations
-
-- Only usable for simple exampels [https://go.dev/play](https://go.dev/play)
-- No IO opterations except stdin & stdout
-- [https://replit.com](https://replit.com) as a more sophisticated alternative
-
 ## Program skeleton
 
 .code examples/01_skeleton/main.go
@@ -146,19 +140,26 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 * The main function does not accept parameters and is the entry point in every go program
 * The program ends when the end of main is reached
 
+## Go Playground Limitations
+
+- Only usable for simple exampels [https://go.dev/play](https://go.dev/play)
+- No IO opterations except stdin & stdout
+- [https://replit.com](https://replit.com) as a more sophisticated alternative
+
 ## Examples: Reading command arguments
 
 * How to read args from main, when main does not have params?
-* Introduce other source files & packages
-* Introduce testing
+* Package "os" to read args
+* os.Args[0] is always the executable itself
 
 .code examples/02_cli/cmd/main.go 
 
 ## Exercise: Hello, Matthias!
 
 - Write a simple Go program that outputs "Hello, Matthias!"
-- Create a main.go file with a `main` function inside
-- Execute the code by running `go run .` in the terminal while being in the work directory
+  - Create a main.go file with a `main` function inside
+  - use "`fmt.Println`" to print text to the console
+- Execute the code by running "`go run .`" in the terminal while being in the work directory
 
 ## Result - Hello, Matthias!
 
@@ -168,6 +169,18 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 
 .image go-hike.png 500 700
 .caption https://betterprogramming.pub/how-to-write-generic-helper-functions-with-go-d47c52986016
+
+## main
+
+* The "`main`" function is the starting point of every Go program
+* A program can have multiple main function in its source code
+  * Compiled binaries still only have one "`main`" function
+
+.image cmds.png _ 300
+
+* "`go run cmd/dev/main.go`" runs the `main.go` in `cmd/dev`
+* "`go build -o bin/aws_hello cmd/aws_hello/main.go`"
+  * compiles `cmd/aws_hello/main.go` into `bin/aws_hello`
 
 ## Functions
 
@@ -232,7 +245,7 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 * and convert it back to uint
 * Go assignment between items of different type requires an explicit conversion
 
-.code examples/05_basic_types/conversions.go
+.play examples/05_basic_types/cmd/conversions/main.go
 
 ## Basic types - Type inference
 
@@ -320,7 +333,11 @@ When the right hand side contains an untyped numeric constant, the new variable 
 
 ## Pointers
 
--- TODO add pointer image
+.play examples/10_pointers/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+.image pointer_intro.png 300 _
+
+## Pointers II
 
 * pointer holds the memory address of a value
 * type **`*T`** is a pointer to a **`T`** value. Its zero value is **`nil`**
@@ -328,13 +345,13 @@ When the right hand side contains an untyped numeric constant, the new variable 
 * **`*`** operator dereferences the value of underlying pointer
 * unlike C, Go has no pointer arithmetic
 
-.play examples/10_pointers/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+.play examples/10_pointers/cmd/example/main.go /^//START_1/,/^//END_1/ HL1
 
 ## Structs
 
 * Go does not have **`classes`** but **`structs`**
 * a **`struct`** is a collection of fields
-DOOF - mehr auto
+  * a `Car` has `Doors` and `horse power (HP)`
 
 .play examples/11_structs/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
 

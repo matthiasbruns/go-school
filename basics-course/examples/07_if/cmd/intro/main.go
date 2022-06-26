@@ -6,11 +6,12 @@ import (
 )
 
 //START_1 OMIT
-func sqrt(x float64) string {
+func sqrt(x float64) complex128 {
 	if x < 0 { // HL1
-		return sqrt(-x) + "i"
+		s := math.Sqrt(-x)
+		return complex(0.0, s)
 	} // HL1
-	return fmt.Sprint(math.Sqrt(x))
+	return complex(math.Sqrt(x), 0)
 }
 
 func main() {

@@ -3,16 +3,16 @@ package main
 import "fmt"
 
 //START_1 OMIT
-type Vertex struct {
-	X int
-	Y int
+type Car struct { // HL1
+	Doors int
+	HP    int
 }
 
 func main() {
-	v := Vertex{1, 2}
-	p := &v // HL1
-	p.X = 1e9
-	fmt.Println(v)
+	car := Car{5, 200}
+	p := &car // HL1
+	p.HP = 350
+	fmt.Println(car)
 }
 
 //END_1 OMIT

@@ -1,19 +1,14 @@
 package main
 
-import "fmt"
-
 //START_1 OMIT
 func main() {
-	i, j := 42, 2701
+	a := 5
+	aPtr := &a
+	aPtrPtr := &aPtr
 
-	p := &i         // point to i
-	fmt.Println(*p) // read i through the pointer
-	*p = 21         // set i through the pointer
-	fmt.Println(i)  // see the new value of i
-
-	p = &j         // point to j
-	*p = *p / 37   // divide j through the pointer
-	fmt.Println(j) // see the new value of j
+	println(a)       // 5
+	println(aPtr)    // 0x01
+	println(aPtrPtr) // 0x02
 }
 
 //END_1 OMIT
