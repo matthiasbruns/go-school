@@ -7,19 +7,19 @@ import (
 
 func intro() {
 	//START_1 OMIT
-	var a [10]int
+	var features [2]string
 	//END_1 OMIT
 
-	log.Println(a)
+	log.Println(features)
 }
 
 func main() {
 	//START_2 OMIT
-	var a [2]string // HL2
-	a[0] = "Hello"
-	a[1] = "World"
-	fmt.Println(a[0], a[1])
-	fmt.Println(a)
+	var features [2]string // HL2
+	features[0] = "Steering Wheel"
+	features[1] = "Working Engine"
+	fmt.Println(features[1])
+	fmt.Println(features)
 
 	primes := [6]int{2, 3, 5, 7, 11, 13} // HL2
 	fmt.Println(primes)

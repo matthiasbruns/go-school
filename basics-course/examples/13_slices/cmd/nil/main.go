@@ -4,10 +4,12 @@ import "fmt"
 
 //START_1 OMIT
 func main() {
-	var s []int // HL1
-	fmt.Println(s, len(s), cap(s))
-	if s == nil {
-		fmt.Println("nil!")
+	var models []string // HL1
+
+	fmt.Println("models:", models, "\nlen(models):", len(models), "\ncap(models):", cap(models))
+
+	if models == nil {
+		fmt.Println("models is nil!")
 	}
 }
 

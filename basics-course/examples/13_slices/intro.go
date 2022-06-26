@@ -4,9 +4,9 @@ import "fmt"
 
 func main() {
 	//START_1 OMIT
-	primes := [6]int{2, 3, 5, 7, 11, 13} // HL1
+	features := [6]string{"Engine", "Steering-Wheel", "Driver-Seat", "GPS", "Radio", "AC"} // HL1
 
-	var s []int = primes[1:4] // HL1
-	fmt.Println(s)
+	var bestFeatures []string = features[1:4] // HL1
+	fmt.Println(bestFeatures)
 	//END_1 OMIT
 }

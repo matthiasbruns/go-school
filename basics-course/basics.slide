@@ -355,6 +355,13 @@ When the right hand side contains an untyped numeric constant, the new variable 
 
 .play examples/11_structs/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
 
+## Structs short
+
+* Structs can also be defined inline
+* When creating a types collection of structs, you can omit the struct name in the values
+
+.code examples/11_structs/cmd/intro/main.go /^//START_2/,/^//END_2/ HL2
+
 ## Struct Pointers
 
 * Struct fields can be accessed through a struct pointer
@@ -380,16 +387,14 @@ When the right hand side contains an untyped numeric constant, the new variable 
 
 .play examples/12_arrays/intro.go /^//START_2/,/^//END_2/ HL2
 
-.image examples/12_arrays/arrays.png
-
 ## Slices
 
 * dynamically-sized
 * flexible view into the elements of an array
 * slice is formed by specifying two indices, a low and high bound
-> `a[low : high]`
+> `features[low : high]`
 * includes the `low` element, but excludes the `high` one.
-> `a[1:4]`
+> `features[1:4]`
 
 .play examples/13_slices/intro.go /^//START_1/,/^//END_1/ HL1
 
@@ -402,11 +407,11 @@ When the right hand side contains an untyped numeric constant, the new variable 
 
 For the array 
 
-> `var a [10]int`
+> `var features [10]string`
 
 these slice expressions are equivalent: 
 
-> `a[0:10], a[:10], a[0:], a[:]`
+> `features[0:10], features[:10], features[0:], features[:]`
 
 ## Slices & Arrays
 

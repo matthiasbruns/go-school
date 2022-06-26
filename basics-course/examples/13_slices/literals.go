@@ -1,7 +1,7 @@
 //START_1 OMIT
-[3]bool{true, true, false}
+[3]string{"Opel", "Seat", "Volkswagen"}
 //END_1 OMIT
 
 //START_2 OMIT
-[]bool{true, true, false}
+[]string{"Opel", "Seat", "Volkswagen"}
 //END_2 OMIT
