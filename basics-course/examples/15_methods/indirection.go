@@ -1,13 +1,13 @@
 //START_1 OMIT
-var v Vertex
-ScaleFunc(v, 5)  // Compile error!
-ScaleFunc(&v, 5) // OK
+var c Car
+Start(c)  // Compile error!
+Start(&c) // OK
 
 //END_1 OMIT
 
 //START_2 OMIT
-var v Vertex
-v.Scale(5) // OK
+var c Car
+c.Start() // OK
 p := &v
-p.Scale(10) // OK
+p.Start() // OK
 //END_2 OMIT

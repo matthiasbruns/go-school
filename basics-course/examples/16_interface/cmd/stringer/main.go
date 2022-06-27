@@ -2,20 +2,24 @@ package main
 
 import "fmt"
 
-type Person struct {
-	Name string
-	Age  int
+type Car struct {
+	Doors, HP     int
+	EngineRunning bool
 }
 
 //START_1 OMIT
-func (p Person) String() string {
-	return fmt.Sprintf("%v (%v years)", p.Name, p.Age)
+func (p Car) String() string { // HL1
+	running := "not running"
+	if p.EngineRunning {
+		running = "running"
+	}
+	return fmt.Sprintf("%d Doors (%d HP) is %s", p.Doors, p.HP, running) // HL1
 }
 
 func main() {
-	a := Person{"Arthur Dent", 42}
-	z := Person{"Zaphod Beeblebrox", 9001}
-	fmt.Println(a, z)
+	bmw := Car{Doors: 5, HP: 120, EngineRunning: true}
+	fiat := Car{Doors: 3, HP: 80, EngineRunning: false}
+	fmt.Println("bmw", bmw, "\nfiat:", fiat) // HL1
 }
 
 //END_1 OMIT

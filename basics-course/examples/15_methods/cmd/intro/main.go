@@ -2,28 +2,28 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
 //START_1 OMIT
-type Vertex struct {
-	X, Y float64
+type Car struct {
+	Doors, HP int
 }
 
-func (v Vertex) Abs() float64 { // HL1
-	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+func (c Car) IsSportsCar() bool { // HL1
+	return c.HP > 100
 }
 
 func main() {
-	v := Vertex{3, 4}
-	fmt.Println(v.Abs()) // HL1
+	c := Car{Doors: 3, HP: 120}
+
+	fmt.Println(c.IsSportsCar()) // HL1
 }
 
 //END_1 OMIT
 
 //START_2 OMIT
-func Abs(v Vertex) float64 { // HL2
-	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+func IsSportsCar(c Car) bool { // HL2
+	return c.HP > 100
 }
 
 //END_2 OMIT

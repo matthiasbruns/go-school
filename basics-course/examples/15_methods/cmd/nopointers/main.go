@@ -2,27 +2,31 @@ package main
 
 import (
 	"fmt"
-	"math"
 )
 
-type Vertex struct {
-	X, Y float64
+type Car struct {
+	Doors, HP     int
+	EngineRunning bool
 }
 
 //START_1 OMIT
-func (v Vertex) Abs() float64 { // HL1
-	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+func (c Car) Drive() string {
+	if c.EngineRunning {
+		return "Wroooom!"
+	} else {
+		return "No wrooom!"
+	}
 }
 
-func (v Vertex) Scale(f float64) { // HL1
-	v.X = v.X * f
-	v.Y = v.Y * f
+func (c Car) Start() { // HL1
+	c.EngineRunning = true
 }
 
 func main() {
-	v := Vertex{3, 4}
-	v.Scale(10)
-	fmt.Println(v.Abs())
+	v := Car{Doors: 3, HP: 120}
+	fmt.Println(v.Drive())
+	v.Start()
+	fmt.Println(v.Drive())
 }
 
 //END_1 OMIT

@@ -2,19 +2,15 @@ package main
 
 import "fmt"
 
-type I interface {
-	M()
+type Vehicle interface {
+	Drive() string
 }
 
 //START_1 OMIT
 func main() {
-	var i I // HL1
-	describe(i)
-	i.M() // will panic since i is nil
+	var v Vehicle // HL1
+	fmt.Printf("(%v)\n", v)
+	v.Drive() // will panic because v is nil
 }
 
 //END_1 OMIT
-
-func describe(i I) {
-	fmt.Printf("(%v)\n", i)
-}

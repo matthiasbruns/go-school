@@ -598,13 +598,7 @@ Removing the pointer receiver definition leads to a different result
 
 .code examples/15_methods/indirection.go /^//START_2/,/^//END_2/ HL2
 
-Go interprets the statement **`v.Scale(5)`** as **`(&v).Scale(5)`** since the Scale method has a pointer receiver!
-
-## Example - Pointer indirection
-
-**Q**: What will happen?
-
-.play examples/15_methods/cmd/indirection/main.go /^//START_1/,/^//END_1/ HL1
+Go interprets the statement **`c.Start()`** as **`(&c).Start()`** since the `Start` method has a pointer receiver!
 
 ## Value vs pointer receiver
 
@@ -663,7 +657,6 @@ An interface **`type`** is defined as a set of method signatures
 ## Empty interface{}
 
 * Handles values of unknown type
-  * Used to simulate generics pre 1.18
 * Allows any value to be set to a variable
 
 .play examples/16_interface/cmd/empty/main.go /^//START_1/,/^//END_1/ HL1
@@ -718,7 +711,7 @@ For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4".
 
 .code examples/17_errors/intro.go HL1
 
-.image error-go.png 300 300
+.image error-go.png _ 300
 
 ## Go error II
  
@@ -736,20 +729,44 @@ For instance, IPAddr{1, 2, 3, 4} should print as "1.2.3.4".
 
 .code examples/18_generics/intro.go HL1
 
+## Generic constraints
+
 * s is a slice of any type **`T`** that fulfills the built-in constraint **`comparable`**
 * x is also a value of the same type 
 
 *comparable is a useful constraint that makes it possible to use the == and != operators on values of the type*
 
-## Example - Generics
+.code examples/18_generics/constraints.go /^//START_1/,/^//END_1/ HL1
+
+* or constrain T to implement Stringer
+
+.code examples/18_generics/constraints.go /^//START_2/,/^//END_2/ HL2
+
+## Example - Generics constraints
 
 .play examples/18_generics/cmd/intro/main.go /^//START_1/,/^//END_1/ HL1
+
+## Generic contraints cont.
+
+* `comparable` only guarantees that a type supports `==`
+
+.code examples/18_generics/max.go /^//START_1/,/^//END_1/ HL1
+
+* You can design own constrains or use predefined ones from the `constraints` package
+
+.code examples/18_generics/max.go /^//START_2/,/^//END_2/ HL2
+
+## Generic contraints cont.
+
+* Predefined constraints can be found in `golang.org/x/exp/constraints`
+
+.play examples/18_generics/cmd/max/main.go  /^//START_1/,/^//END_1/ HL1
 
 ## Generic types
 
 * types can also be generic
 
-.code examples/18_generics/types.go HL1
+.play examples/18_generics/cmd/types/main.go HL1
 
 ## Chapter 11 - Goroutines
 

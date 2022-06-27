@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-type IPAddr [4]byte
+type IPAddr [4]byte // typealias IPAddr is a bite array with size 4
 
 // TODO: Add a "String() string" method to IPAddr.
 
