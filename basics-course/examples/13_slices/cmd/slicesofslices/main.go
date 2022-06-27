@@ -7,22 +7,22 @@ import (
 
 //START_1 OMIT
 func main() {
+	openAstra := 0
+	vwBeetle := 1
 	// Create a tic-tac-toe board.
-	board := [][]string{ // HL1
-		[]string{"_", "_", "_"}, // HL1
-		[]string{"_", "_", "_"}, // HL1
-		[]string{"_", "_", "_"}, // HL1
+	featureMatrix := [][]string{ // HL1
+		{"", "", ""},                     // HL1
+		{"DAB", "GPS", "Cruise Control"}, // HL1
 	} // HL1
 
 	// The players take turns.
-	board[0][0] = "X"
-	board[2][2] = "O"
-	board[1][2] = "X"
-	board[1][0] = "O"
-	board[0][2] = "X"
+	featureMatrix[openAstra][0] = "Camera"
+	featureMatrix[openAstra][1] = "Leather"
+	featureMatrix[openAstra][2] = "GPS"
+	featureMatrix[vwBeetle][2] = "Isofix"
 
-	for i := 0; i < len(board); i++ {
-		fmt.Printf("%s\n", strings.Join(board[i], " "))
+	for i := 0; i < len(featureMatrix); i++ {
+		fmt.Printf("%s\n", strings.Join(featureMatrix[i], " "))
 	}
 }
 

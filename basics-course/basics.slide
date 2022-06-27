@@ -140,12 +140,6 @@ Open in Go Playground [https://go.dev/play/p/2rie-h786WN](https://go.dev/play/p/
 * The main function does not accept parameters and is the entry point in every go program
 * The program ends when the end of main is reached
 
-## Go Playground Limitations
-
-- Only usable for simple exampels [https://go.dev/play](https://go.dev/play)
-- No IO opterations except stdin & stdout
-- [https://replit.com](https://replit.com) as a more sophisticated alternative
-
 ## Examples: Reading command arguments
 
 * How to read args from main, when main does not have params?
