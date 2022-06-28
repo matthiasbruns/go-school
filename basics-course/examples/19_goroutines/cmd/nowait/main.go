@@ -15,9 +15,6 @@ func main() {
 	go doSomething() // HL1
 
 	fmt.Println("main done")
-
-	// Delay real exit to illustrate the problem
-	time.Sleep(1 * time.Second)
 }
 
 //END_1 OMIT

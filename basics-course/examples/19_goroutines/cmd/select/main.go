@@ -1,31 +1,34 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 //START_1 OMIT
-func fibonacci(c, quit chan int) {
-	x, y := 0, 1
+func turnSignal(blinker chan string, quit chan struct{}) {
+	var x, y = "on", "off"
 	for { // HL1
 		select {
-		case c <- x: // HL1
-			x, y = y, x+y
+		case blinker <- x: // HL1
+			x, y = y, x
+			time.Sleep(500 * time.Millisecond)
 		case <-quit: // HL1
 			fmt.Println("quit")
 			return
 		}
 	}
 }
-
 func main() {
-	c := make(chan int)
-	quit := make(chan int)
+	blinker := make(chan string)
+	quit := make(chan struct{})
 	go func() {
 		for i := 0; i < 10; i++ {
-			fmt.Println(<-c) // HL1
+			fmt.Println(<-blinker) // HL1
 		}
-		quit <- 0 // HL1
+		quit <- struct{}{} // HL1
 	}()
-	fibonacci(c, quit) // HL1
+	turnSignal(blinker, quit) // HL1
 }
 
 //END_1 OMIT

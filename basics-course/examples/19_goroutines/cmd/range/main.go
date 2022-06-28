@@ -2,21 +2,25 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 //START_1 OMIT
-func fibonacci(n int, c chan int) {
-	x, y := 0, 1
+func turnSignal(n int, c chan string) {
 	for i := 0; i < n; i++ {
-		c <- x
-		x, y = y, x+y
+		if i%2 == 0 {
+			c <- "on" // HL1
+		} else {
+			c <- "off" // HL1
+		}
+		time.Sleep(250 * time.Millisecond)
 	}
 	close(c) // HL1
 }
 
 func main() {
-	c := make(chan int, 10)
-	go fibonacci(cap(c), c)
+	c := make(chan string, 10)
+	go turnSignal(cap(c), c)
 	for i := range c { // HL1
 		fmt.Println(i)
 	}

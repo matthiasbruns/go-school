@@ -831,10 +831,10 @@ Like maps and slices, channels must be created before use:
 ## Range and Close
 
 * A sender can close a channel to indicate that no more values will be sent
-* Receivers can test whether a channel has been closed
   * Only the sender should close a channel, never the receiver
   * Channels aren't like files; you don't usually need to close them
-* if `ok` is false, the channel is closed  
+* Receivers can test whether a channel has been closed
+  * if **`ok`** is false, the channel is closed  
 
 .code examples/19_goroutines/channels.go /^//START_4/,/^//END_4/
 
@@ -872,13 +872,14 @@ What if we do not want to block until **`select`** triggers?
 
 ## Mutex
 
-* Good to ensure only one goroutines accesses a variable
-* **`sync/atomic`** provides low-level atomic memory primitives 
+* Good to ensure only one goroutine accesses a variable
 * **`sync.Mutex`** has two methods
   * Lock
   * Unlock 
 
 .code examples/19_goroutines/cmd/mutex/main.go /^//START_1/,/^//END_1/ HL1
+
+* **`sync/atomic`** provides low-level atomic memory primitives 
 
 ## Example - Mutex
 
@@ -895,7 +896,7 @@ What if we do not want to block until **`select`** triggers?
 
 ## Worker Pools II
 
-* Define a fixed number of jobs and corresponsing channels for comminucation between coroutines
+* Define a fixed number of jobs and corresponsing channels for communication between coroutines
 * "Boot" up the workers
 
 .code examples/19_goroutines/cmd/pool/main.go /^//START_2/,/^//END_2/ HL2
