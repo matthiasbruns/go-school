@@ -168,7 +168,6 @@ https://www.linkedin.com/in/matthiasbruns/
 
 .code examples/03_json/nested.go /^//START_2/,/^//END_2/ HL2
 
-
 ## JSON - Nested Objects II
 
 * Unmarshal json data into struct and nested struct

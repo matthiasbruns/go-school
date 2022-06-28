@@ -10,18 +10,18 @@ import (
 //START_1 OMIT
 // Define data to be parsed
 var data = `
-Model: VC Wolf
+Model: VW Golf
 Config:
-  Entrances: 2
+  Doors: 2
   Features: [Engine, Headlights]
 `
 
 // Define target structure
-type Data struct {
+type Car struct {
 	Model  string
 	Config struct {
-		Doors    int      `yaml:"Entrances"` // HL1
-		Features []string `yaml:",flow"`     // HL1
+		Doors    int      `yaml:"Doors"` // HL1
+		Features []string `yaml:",flow"` // HL1
 	}
 }
 
@@ -29,7 +29,7 @@ type Data struct {
 
 //START_2 OMIT
 func main() {
-	dataStruct := Data{}
+	dataStruct := Car{}
 
 	// parse yaml to struct
 	err := yaml.Unmarshal([]byte(data), &dataStruct) // HL2

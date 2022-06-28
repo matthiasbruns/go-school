@@ -1,20 +1,19 @@
 //START_1 OMIT
 [
   {
-    "species": "pigeon",
-    "decription": "likes to perch on rocks"
+    "Doors": 2,
+    "Color": "Red"
   },
   {
-    "species":"eagle",
-    "description":"bird of prey"
+    "Doors": 5,
+    "Color": "Blue"
   }
 ]
 //END_1 OMIT
 
 //START_2 OMIT
-birdJson := `[{"species":"pigeon","decription":"likes to perch on rocks"},{"species":"eagle","description":"bird of prey"}]`
-var birds []Bird
-json.Unmarshal([]byte(birdJson), &birds) // HL2
-fmt.Printf("Birds : %+v", birds)
-//Birds : [{Species:pigeon Description:} {Species:eagle Description:bird of prey}]
+carsJson := `[{"doors":2,"color":"Red"},{"doors":5,"color":"Blue"}]`
+var cars []Cars
+json.Unmarshal([]byte(carsJson), &cars) // HL2
+fmt.Printf("Cars : %+v", cars)
 //END_2 OMIT

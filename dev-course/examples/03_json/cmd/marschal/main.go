@@ -6,18 +6,19 @@ import (
 )
 
 //START_1 OMIT
-type Bird struct {
-	Species string `json:"birdType"`
+type Car struct {
+	Doors int `json:"doorsAmount"`
 	// we can set the "omitempty" property as part of the JSON tag
-	Description string `json:"what it does,omitempty"` // HL1
+	Color string `json:"color,omitempty"` // HL1
 }
 
 func main() {
-	pigeon := &Bird{
-		Species: "Pigeon",
+	car := &Car{ // HL1
+		Doors: 3,
+		Color: "black",
 	}
 
-	data, _ := json.Marshal(pigeon) // HL1
+	data, _ := json.Marshal(car) // HL1
 
 	fmt.Println(string(data))
 }

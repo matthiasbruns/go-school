@@ -74,7 +74,33 @@ https://www.linkedin.com/in/matthiasbruns/
 
 *This is because, the GO Compiler takes the decision whether a referenced variable needs to stay on the stack or on the heap.*
 
-TODO show how to validate that asumption
+## How to detect allocations?
+
+Use "`go build -gcflags '-m -l'`" to see allocations for the entry file of a program
+>
+
+```
+cmd/server/main.go:9:12: ... argument does not escape
+cmd/server/main.go:9:13: "Starting server" escapes to heap
+```
+>
+----
+Use benchmark tests on a unit-test level to get allocations of each function
+>
+
+```
+func BenchmarkIntMin(b *testing.B) { 
+	for i := 0; i < b.N; i++ {
+		IntMin(1, 2)
+	}
+}
+```
+
+might output:
+
+```
+BenchmarkTBHelper-10              560562               214.3 ns/op             0 B/op          0 allocs/op
+```
 
 ## Pointer in Heap
 
@@ -96,7 +122,7 @@ Let us see what happens when the Println function is called.
 
 * Println function takes the space freed up by the answer function (notice the memory address) and takes reference to the returned value and divides it by 2 (making it 21)
 
-.image examples/01_memory/stack_09.jpg _ 700
+.image examples/01_memory/stack_09.jpg _ 600
 
 * This is the problem here, the value which n was pointing to (which was originally 42) has been overwritten by the Println call which made it 21. And since Println took over the memory address of answer function (after answer function freed up the space), now that memory has the value 21 (instead of 42)
 
@@ -104,7 +130,7 @@ Let us see what happens when the Println function is called.
 
 * Compiler knows it was NOT safe to leave the pointer variable on the stack. So what it does is, it declares x (from the answer function) somewhere on the Heap
 
-.image examples/01_memory/stack_10.jpg _ 700
+.image examples/01_memory/stack_10.jpg _ 600
 
 This means when the Println function is called, which changes the value to half, it will not clobber the value of x. This is called Escaping To The Heap which is done during the compile time.
 
@@ -170,6 +196,7 @@ Therefore, sharing up (returning pointers) typically escapes to the Heap.
 * The server can be downloaded here:
 
 [https://github.com/matthiasbruns/go-school/blob/main/dev-course/coding/http/main.go](https://github.com/matthiasbruns/go-school/blob/main/dev-course/coding/http/main.go)
+or [https://ref.onl/SdRK2tdm](https://ref.onl/SdRK2tdm)
 
 * Run it with "**`go run main.go`**" & the server will listen on localhost:8090
 * Use **`request.SetBasicAuth(username, password)`** before sending the request to **localhost:8090/basic-auth** to set the Authorization header in your request
@@ -216,7 +243,7 @@ Therefore, sharing up (returning pointers) typically escapes to the Heap.
 
 .code examples/03_json/arrays.go /^//START_1/,/^//END_1/ HL1
 
-* Unmarshal it by creating a slice of birds
+* Unmarshal it by creating a slice of cars
 
 .code examples/03_json/arrays.go /^//START_2/,/^//END_2/ HL2
 
@@ -243,10 +270,17 @@ Therefore, sharing up (returning pointers) typically escapes to the Heap.
 
 .code examples/03_json/tags.go /^//START_1/,/^//END_1/ HL1
 
-* **`birdType`** should be mapped to **`Species`**
-* **`what it does`** should be mapped to **`Description`**
+* **`carType`** should be mapped to **`Type`**
+* **`doorsCount`** should be mapped to **`Doors`**
 
 .code examples/03_json/tags.go /^//START_2/,/^//END_2/ HL2
+
+## JSON - Request body
+
+* Parsing a json body from a http.Request
+* Use "`json.NewDecoder(r.Body)`" to directly consume the body stream of a request
+
+.code examples/03_json/request.go /^//START_1/,/^//END_1/ HL1
 
 ## JSON - Unstructured data
 
@@ -395,24 +429,211 @@ Therefore, sharing up (returning pointers) typically escapes to the Heap.
 
 .caption Illustration by Marcus Olsson CC BY-NC-SA 4.0
 
-## Chapter 6 - Goroutines Reloaded
+## Chapter 6 - CLI
 
-    Go-Routines/Channels
+## Recap - CLI
+
+* Read args with **`os.Args`**
+* The first entry is always the program
+* This can be enough to build you own cli tool
+
+.code examples/08_cli/intro.go /^//START_1/,/^//END_1/ HL1
+
+## Recap - CLI libraries
+
+* You could parse flags and values by yourself and validate if the input is correct
+* ... but there are libraries for that
+
+## Cli library - Cobra
+
+https://github.com/spf13/cobra
+
+* POSIX-compliant flags
+* Nested subcommands
+* Global, local and cascading flags
+* Intelligent suggestions (app srver... did you mean app server?)
+* Automatic help generation for commands and flags
+* Automatic help flag recognition of -h, --help, etc.
+* Automatically generated shell autocomplete for your application (bash, zsh, fish, powershell)
+
+## Cli library - cli
+
+https://github.com/urfave/cli
+
+cli is a simple, fast, and fun package for building command line apps in Go. The goal is to enable developers to write fast and distributable command line applications in an expressive way
+
+.code examples/08_cli/cli.go /^//START_1/,/^//END_1/ HL1
+
+## Cli library - cli II
+
+* If you finish you cli project and want to store it into your $PATH, you can either
+  * compile it with **`go build`** and move the compiled binary into your path
+  * install any Go project into your **`$GOPATH/bin`** with **`go install`**
+
+* How to read args in cli?
+
+.code examples/08_cli/cli.go /^//START_2/,/^//END_2/ HL2
+
+## Cli library - cli Flags
+
+* You can define flags with defaults and read their values
+* Call **`c.String("lang")`** on **`cli.Context`** to get mapped flag args
+
+.code examples/08_cli/cli.go /^//START_3/,/^//END_3/ HL3
 
 
-    Go Modules
+## Cli library - cli Flags II
 
-    Arbeiten mit Datum und Uhrzeit
+* You can also define a destination where the flag should be stored in
 
-    Best Practices und Frameworks zur Entwicklung von Rest Services
+.code examples/08_cli/cli.go /^//START_4/,/^//END_4/ HL4
 
-    Generelle Übersicht und Entscheidungshilfe wann Go seine Stärken ausspielen kann und sich besser eignet als andere Sprachen und wo die Schwächen sind
+## Cli library - cli Flags ENV vars
 
-    Wie strukturiere ich große Go-Projekte “Go-idiomatisch” richtig
+* You can use EnvVars as fallback values for flags
+* Set the **`EnvVars`** property on a flag
+* The first matching value will be read from the **`EnvVars`** slice
 
-    Testing
-    Error Handling
-    Speicherverwaltung
-    
-    Structs
-    Interfaces
+.code examples/08_cli/cli.go /^//START_5/,/^//END_5/ HL5
+
+## Cli library - cli Flags FilePath
+
+* You can also read flags from a file
+* Set the **`FilePath`** property on a flag
+* FilePath has a highter priority than EnvVars
+* Currently supported input source formats: * YAML * JSON * TOML
+
+.code examples/08_cli/cli.go /^//START_6/,/^//END_6/ HL6
+
+## Cli library - cli Commands
+
+* You are able to add commands to your cli application
+* Set **`Commands`** in your `cli.App`
+  * Commands can also have flags and arguments
+* Commands can also have **`Subcommands`**
+
+.code examples/08_cli/cli.go /^//START_7/,/^//END_7/ HL7
+
+## Exercise - Dog fact cli
+
+.image dog-gopher.jpg
+
+.caption Maria Nynfa - https://twitter.com/maria_nynfa/status/1181668007627677699
+
+## Exercise - Dog fact cli
+
+* Build a cli that prints random dog facts
+* I suggest you to use the presented cli library, but you are free to also use viper or manual args mapping
+* You can 
+  * provide a list of dog facts by your own or 
+  * use https://kinduff.github.io/dog-api/ (free to use)
+* add useful help for your commands and flags
+* (optional) - define how many fact you want to have presented in a flag
+* (optional) - add a bark command which let's your program bark
+* (optional) - all a dog ascii art command
+
+**This is the last exercise of this course, so have fun with it!**
+
+## Libraries to use
+
+## Gin for the web!
+
+* For web servers, I would always pick **`github.com/gin-gonic/gin`**
+  * really fast because they built their own ServerMux - read more here https://github.com/julienschmidt/httprouter
+  * easy to build routes for http methods (GET; POST, DELETE etc..)
+
+.code examples/09_libs/gin.go HL1
+
+## GORM for SQL
+
+* We went through the sql Golang package and how to use the interface
+* If you are looking for a ORM, I suggest GORM https://github.com/go-gorm/gorm
+
+.code examples/09_libs/gorm.go /^//START_1/,/^//END_1/ HL1
+
+## Logging in Go
+
+* **Logrus** is a good standalone logger solution https://github.com/sirupsen/logrus
+  * has different formatters, color support, prints callers 
+
+* **uber/zap** https://github.com/uber-go/zap
+  * low alloc logging implementation by uber
+  * has support for defered logging, when logging is not time critical with `SugaredLogger`
+
+I prefer zap because of its performance and logrus because if its ease of use
+
+## Dependency Injection
+
+* **wire** https://github.com/google/wire
+  * compile-time code generation to build the dependency injection graph in Golang
+
+* **uber/fx** https://github.com/uber-go/fx
+  * for runtime dependency injection
+  * validates graph on application start
+  * has a concept for modules
+
+I prefer uber/fx over wire. It allows a more modulized , domain-driven approach
+
+## Build scripts
+
+* Go has no build tool like Maven or Gradle
+* If you search for information, you will find a lot of Makefiles, which break the platform-independency of Golang
+* I use Taskfile https://taskfile.dev/ for my Golang projects, which work like a lightweight Gradle
+  * It prevents you from rerunning tasks, which do not need to be rerun
+  * It allows you to map command chains
+
+.code examples/09_libs/taskfile.go
+
+## Testing
+
+* **mockgen** for mock generation https://github.com/golang/mock
+* **testify** for testing https://github.com/stretchr/testify provides assertion and test suites
+
+.code examples/09_libs/mock.go HL1
+
+## Config Management
+
+* **godotenv** https://github.com/joho/godotenv 
+  * for simple .env file and ENV VAR handling
+
+.code examples/09_libs/godotenv.go /^//START_1/,/^//END_1/ HL1
+
+* **viper** https://github.com/spf13/viper 
+  * for complex config management
+
+## Chapter 7 - Go & Python
+
+.image go_vs_python_perf_comp.png 500 900
+
+.caption https://www.guru99.com/python-vs-go.html
+
+## When to use Golang
+
+* Use of concurrency - goroutines
+* Readability - depending on who you ask
+* (Micro)-Services with REST or gRPC
+* Compilable for many platforms
+
+## When to use Python
+
+* Dynamicly typed, faster cold-boot ~ 10-20 %
+* Readability - depending on who you ask
+* Amount of libraries
+* Machine learning
+* Django and other full-blown web portals
+
+## Summary
+
+* Learned how Go can communicate with the OS
+* Used the http package for server & client
+* Created a HTTP server with JWT authentication
+* Compared JSON & YAML parsing
+* Communicated with MySQL through the SQL interface
+* Learned a bit about the Go Context
+* Built a Go CLI
+* Discussed best practises
+* Compared Go & Python
+
+## Q&A
+
+## Le Fin

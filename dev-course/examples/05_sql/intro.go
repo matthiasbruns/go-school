@@ -4,25 +4,23 @@ db, err := sql.Open(driver, dataSourceName)
 
 //START_2 OMIT
 result, err := db.ExecContext(ctx, // HL2
-	"INSERT INTO users (name, age) VALUES ($1, $2)",
-	"gopher",
-	27,
+	"INSERT INTO cars (doors, color) VALUES ($1, $2)", 2, "red",
 )
 //END_2 OMIT
 
 //START_3 OMIT
-rows, err := db.QueryContext(ctx, "SELECT name FROM users WHERE age = $1", age) // HL3
+rows, err := db.QueryContext(ctx, "SELECT color FROM cars WHERE doors = $1", count) // HL3
 if err != nil {
 	log.Fatal(err)
 }
 defer rows.Close() // HL3
 
 for rows.Next() { // HL3
-	var name string
-	if err := rows.Scan(&name); err != nil { // HL3
+	var color string
+	if err := rows.Scan(&color); err != nil { // HL3
 		log.Fatal(err)
 	}
-	fmt.Printf("%s is %d\n", name, age)
+	fmt.Printf("%s is %d\n", color, count)
 }
 
 if err := rows.Err(); err != nil {
@@ -31,17 +29,17 @@ if err := rows.Err(); err != nil {
 //END_3 OMIT
 
 //START_4 OMIT
-var age int64
-err := db.QueryRowContext(ctx, "SELECT age FROM users WHERE name = $1", name).Scan(&age) // HL4
+var doors int64
+err := db.QueryRowContext(ctx, "SELECT doors FROM cars WHERE color = $1", color).Scan(&doors) // HL4
 //END_4 OMIT
 
 //START_5 OMIT
-age := 27
-stmt, err := db.PrepareContext(ctx, "SELECT name FROM users WHERE age = $1") // HL5
+doors := 27
+stmt, err := db.PrepareContext(ctx, "SELECT color FROM cars WHERE doors = $1") // HL5
 if err != nil {
 	log.Fatal(err)
 }
-rows, err := stmt.Query(age)
+rows, err := stmt.Query(doors)
 // process rows
 //END_5 OMIT
 
