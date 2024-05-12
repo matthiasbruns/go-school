@@ -13,4 +13,6 @@ This program will require use of `math.Pi` in conjunction with `math.Pow` and mu
 ## Hint
 
 How to read the input? You can figure it out by looking at the `fmt` package documentation.
+> https://pkg.go.dev/fmt#hdr-Scanning
+
 Otherwise, check the hint.md file for a hint.
